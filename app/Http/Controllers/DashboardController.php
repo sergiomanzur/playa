@@ -18,6 +18,8 @@ class DashboardController extends Controller
         $user = Auth::user();
         $data = ['hello' => 'world'];
 
+        
+
         return view('dashboard', [
             'data' => [
                 'hello' => 'world',
