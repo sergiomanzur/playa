@@ -11,6 +11,8 @@ class Lote extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['nombre', 'manzana_id', 'user_id'];
+
     public function user() : BelongsTo
     {
         return $this->belongsTo(User::class);

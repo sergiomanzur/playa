@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LoteResource\Pages;
-use App\Filament\Resources\LoteResource\RelationManagers;
-use App\Models\Lote;
+use App\Filament\Resources\BalancesResource\Pages;
+use App\Filament\Resources\BalancesResource\RelationManagers;
+use App\Models\Balances;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,9 +13,9 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LoteResource extends Resource
+class BalancesResource extends Resource
 {
-    protected static ?string $model = Lote::class;
+    protected static ?string $model = Balances::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
 
@@ -25,11 +25,11 @@ class LoteResource extends Resource
             ->schema([
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name'),
-                Forms\Components\Select::make('manzana_id')
-                    ->relationship('manzana', 'nombre')
+                Forms\Components\Select::make('lote_id')
+                    ->relationship('lote', 'id')
                     ->required(),
-                Forms\Components\TextInput::make('nombre')
-                    ->maxLength(255),
+                Forms\Components\TextInput::make('total'),
+                Forms\Components\TextInput::make('credito'),
             ]);
     }
 
@@ -38,8 +38,9 @@ class LoteResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('manzana.nombre'),
-                Tables\Columns\TextColumn::make('nombre'),
+                Tables\Columns\TextColumn::make('lote.id'),
+                Tables\Columns\TextColumn::make('total'),
+                Tables\Columns\TextColumn::make('credito'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -55,20 +56,20 @@ class LoteResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-
+    
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-
+    
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLotes::route('/'),
-            'create' => Pages\CreateLote::route('/create'),
-            'edit' => Pages\EditLote::route('/{record}/edit'),
+            'index' => Pages\ListBalances::route('/'),
+            'create' => Pages\CreateBalances::route('/create'),
+            'edit' => Pages\EditBalances::route('/{record}/edit'),
         ];
-    }
+    }    
 }

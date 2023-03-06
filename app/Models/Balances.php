@@ -14,4 +14,9 @@ class Balances extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function lote(): BelongsTo
+    {
+        return $this->belongsTo(Lote::class);
+    }
 }
