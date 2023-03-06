@@ -29,8 +29,7 @@ class PagosResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('cantidad')
-                    ->required(),
+                Forms\Components\TextInput::make('cantidad'),
             ]);
     }
 

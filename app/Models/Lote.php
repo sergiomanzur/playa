@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use MongoDB\Driver\Manager;
 
 class Lote extends Model
@@ -22,4 +25,20 @@ class Lote extends Model
     {
         return $this->belongsTo(Manzana::class);
     }
+
+    public function balances(): HasMany
+    {
+        return $this->hasMany(Balances::class);
+    }
+
+    public function promesas(): HasOne
+    {
+        return $this->hasOne(Promesas::class);
+    }
+
+    public function pagos(): HasMany
+    {
+        return $this->hasMany(Pagos::class);
+    }
+
 }

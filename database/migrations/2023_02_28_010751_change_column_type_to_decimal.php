@@ -13,8 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('decimal', function (Blueprint $table) {
+        Schema::table('pagos', function (Blueprint $table) {
+            $table->decimal('cantidad',9,2)->nullable()->change();
+        });
+
+        Schema::table('promesas', function (Blueprint $table) {
+            $table->decimal('cantidad',9,2)->nullable()->change();
+        });
+
+        Schema::table('balances', function (Blueprint $table) {
             //
+            $table->decimal('total',9,2)->nullable()->change();
+            $table->decimal('credito',9,2)->nullable()->change();
         });
     }
 
@@ -25,8 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('decimal', function (Blueprint $table) {
-            //
-        });
+
     }
 };

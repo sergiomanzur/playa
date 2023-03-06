@@ -26,10 +26,32 @@ class BalancesResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name'),
                 Forms\Components\Select::make('lote_id')
-                    ->relationship('lote', 'id')
+                    ->relationship('lote', 'nombre')
                     ->required(),
-                Forms\Components\TextInput::make('total'),
-                Forms\Components\TextInput::make('credito'),
+                Forms\Components\TextInput::make('total')
+                    ->numeric()
+                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                        ->decimalSeparator('.') // Add a separator for decimal numbers.
+                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
+                        ->minValue(1) // Set the minimum value that the number can be.
+                        ->normalizeZeros() // Append or remove zeros at the end of the number.
+                        ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
+                        ->thousandsSeparator(',') // Add a separator for thousands.
+                    ),
+                Forms\Components\TextInput::make('credito')
+                    ->numeric()
+                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                        ->decimalSeparator('.') // Add a separator for decimal numbers.
+                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
+                        ->minValue(1) // Set the minimum value that the number can be.
+                        ->normalizeZeros() // Append or remove zeros at the end of the number.
+                        ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
+                        ->thousandsSeparator(',') // Add a separator for thousands.
+                    ),
             ]);
     }
 
@@ -56,14 +78,14 @@ class BalancesResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -71,5 +93,5 @@ class BalancesResource extends Resource
             'create' => Pages\CreateBalances::route('/create'),
             'edit' => Pages\EditBalances::route('/{record}/edit'),
         ];
-    }    
+    }
 }

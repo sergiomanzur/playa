@@ -10,6 +10,8 @@ class Balances extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['user_id', 'lote_id', 'total', 'credito'];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);

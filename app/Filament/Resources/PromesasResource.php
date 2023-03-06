@@ -24,13 +24,22 @@ class PromesasResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('lote_id')
-                    ->relationship('lote', 'id')
+                    ->relationship('lote', 'nombre')
                     ->required(),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('cantidad')
-                    ->required(),
+                Forms\Components\TextInput::make('cantidad')->numeric()
+                    ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
+                        ->numeric()
+                        ->decimalPlaces(2) // Set the number of digits after the decimal point.
+                        ->decimalSeparator('.') // Add a separator for decimal numbers.
+                        ->mapToDecimalSeparator(['.']) // Map additional characters to the decimal separator.
+                        ->minValue(1) // Set the minimum value that the number can be.
+                        ->normalizeZeros() // Append or remove zeros at the end of the number.
+                        ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
+                        ->thousandsSeparator(',') // Add a separator for thousands.
+                    ),
             ]);
     }
 
@@ -38,7 +47,7 @@ class PromesasResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('lote.id'),
+                Tables\Columns\TextColumn::make('lote.nombre'),
                 Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('cantidad'),
                 Tables\Columns\TextColumn::make('created_at')
@@ -56,14 +65,14 @@ class PromesasResource extends Resource
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -71,5 +80,5 @@ class PromesasResource extends Resource
             'create' => Pages\CreatePromesas::route('/create'),
             'edit' => Pages\EditPromesas::route('/{record}/edit'),
         ];
-    }    
+    }
 }
