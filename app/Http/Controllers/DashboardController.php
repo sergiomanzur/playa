@@ -46,6 +46,7 @@ class DashboardController extends Controller
             'data' => [
                 'user' => $user,
                 'lote' => $lote,
+                'manzana' =>$lote->manzana,
                 'balance' => $balance,
                 'promesa' => $promesa,
                 'credito' => $credito,

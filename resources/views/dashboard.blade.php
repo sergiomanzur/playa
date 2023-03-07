@@ -11,14 +11,30 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div style="display: flex;">
                         <div style="width: 70%;">
-                            Bienvenido a tu cuenta de Playa Hermosa, {{$data['user']['name']}}
-                            <div id="piechart" style="width: 100%; height: 500px;"></div>
+                            <h2 style="font-size: x-large">Bienvenido a tu cuenta de Playa Hermosa</h2>
+                            <h3>{{$data['user']['name']}}</h3>
+                            <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
+                            <div id="piechart" style="margin-top: 20px; width: 90%; height: 300px;"></div>
                         </div>
-                        <div style="width: 30%;">
+                        <div style="width: 30%; padding: 15px; margin-top: 30px;">
+
+                            <h3>Balance a crédito</h3>
+                            <p>${{number_format($data['balance_a_credito'],2)}}</p>
+
+                            <br/>
+
+                            <h3>Balance de pagos realizados</h3>
+                            <p>${{number_format($data['balance_de_pagos_realizados'],2)}}</p>
+
+                            <br/>
+
+                            <h3>Balance pendiente por pagar</h3>
+                            <p>${{number_format($data['balance_pendiente_por_pagar'],2)}}</p>
 
                         </div>
                     </div>
 
+                    <!-- INICIA  SCRIPT DE PIE CHART -->
                     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
                     <script type="text/javascript">
                         google.charts.load('current', {'packages':['corechart']});
@@ -28,12 +44,12 @@
 
                             var data = google.visualization.arrayToDataTable([
                                 ['Concepto', 'Cantidad'],
-                                ['Pagado',     190000],
-                                ['Por Pagar',      110000],
+                                ['Pagado',     {{$data['balance_pagado']}}],
+                                ['Por Pagar', {{$data['balance_pendiente_por_pagar']}}],
                             ]);
 
                             var options = {
-                                title: 'Porcentaje Pagado',
+                                title: 'Porcentajes',
                                 backgroundColor: 'white',
                                 legend: {position: 'top', textStyle: {color: 'blue', fontSize: 16}},
                                 titleTextStyle: {color: 'blue'}
