@@ -6,6 +6,7 @@ use App\Filament\Resources\BalancesResource\Pages;
 use App\Filament\Resources\BalancesResource\RelationManagers;
 use App\Models\Balances;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -52,6 +53,12 @@ class BalancesResource extends Resource
                         ->padFractionalZeros() // Pad zeros at the end of the number to always maintain the maximum number of decimal places.
                         ->thousandsSeparator(',') // Add a separator for thousands.
                     ),
+                Select::make('plan_de_pagos')
+                    ->options([
+                        '12' => '12 pagos SI',
+                        '18' => '18 paso SI',
+                        '24' => '24 pagos Fijos',
+                    ])
             ]);
     }
 
@@ -63,6 +70,7 @@ class BalancesResource extends Resource
                 Tables\Columns\TextColumn::make('lote.id'),
                 Tables\Columns\TextColumn::make('total'),
                 Tables\Columns\TextColumn::make('credito'),
+                Tables\Columns\TextColumn::make('plan_de_pagos'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

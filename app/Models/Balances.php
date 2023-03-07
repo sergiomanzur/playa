@@ -10,7 +10,7 @@ class Balances extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'lote_id', 'total', 'credito'];
+    protected $fillable = ['user_id', 'lote_id', 'total', 'credito', 'plan_de_pagos'];
 
     public function user(): BelongsTo
     {

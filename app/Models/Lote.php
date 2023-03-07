@@ -26,9 +26,9 @@ class Lote extends Model
         return $this->belongsTo(Manzana::class);
     }
 
-    public function balances(): HasMany
+    public function balances(): HasOne
     {
-        return $this->hasMany(Balances::class);
+        return $this->hasOne(Balances::class);
     }
 
     public function promesas(): HasOne

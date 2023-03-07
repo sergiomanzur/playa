@@ -16,14 +16,44 @@ class DashboardController extends Controller
     {
 
         $user = Auth::user();
-        $data = ['hello' => 'world'];
 
+        $user->load('lotes', 'lotes.balances', 'lotes.promesas', 'lotes.manzana', 'lotes.pagos');
 
+        $cantidad_de_lotes = count($user->lotes);
+
+        if($cantidad_de_lotes === 1) {
+            $lote = $user->lotes->first();
+            $balance = $lote->balances->total;
+            $promesa = $lote->promesas->cantidad;
+            $credito = $lote->balances->credito;
+
+            $sum_pagos = 0;
+
+            foreach($lote->pagos as $pago) {
+                $sum_pagos += $pago->cantidad;
+            }
+
+            $balance_de_pagos_realizados = $sum_pagos;
+            $balance_pendiente_por_pagar = $balance - $promesa - $balance_de_pagos_realizados;
+            $balance_a_credito = $credito;
+
+            //(Amount paid / Total worth) x 100%
+            $amount_paid = $promesa + $balance_de_pagos_realizados;
+            $porcentaje_por_pagar = ($amount_paid / $balance) * 100;
+        }
 
         return view('dashboard', [
             'data' => [
-                'hello' => 'world',
-                'user' => $user
+                'user' => $user,
+                'lote' => $lote,
+                'balance' => $balance,
+                'promesa' => $promesa,
+                'credito' => $credito,
+                'balance_de_pagos_realizados' => $balance_de_pagos_realizados,
+                'balance_pendiente_por_pagar' => $balance_pendiente_por_pagar,
+                'balance_a_credito' => $balance_a_credito,
+                'balance_pagado' => $amount_paid,
+                'porcentaje_por_pagar' => $porcentaje_por_pagar
             ]
         ]);
     }

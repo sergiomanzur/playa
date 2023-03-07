@@ -10,6 +10,12 @@ class Pagos extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'lote_id',
+        'user_id',
+        'cantidad'
+    ];
+
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
