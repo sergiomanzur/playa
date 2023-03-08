@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.py-12 {
+    width: 100%;
+}
+
+.content {
+    flex: 2;
+    padding: 20px;
+}
+
+.sidebar {
+    flex: 1;
+    padding: 20px;
+}
+
+h3 {
+    border-bottom: 1px solid;
+    margin-bottom: 5px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 1rem;
+
+}
+
+table th,
+table td {
+    padding: 0.75rem;
+    text-align: left;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+
+.chartjs-doughnut-chart .chartjs-center-text h2 {
+    font-size: 50px;
+    font-weight: bold;
+    color: #36A2EB; /* You can customize the color here */
+}
+
+@media only screen and (max-width: 768px) {
+    content {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        order: 2;
+        flex: none;
+    }
+}
+
+
+.chart-container {
+    position: relative;
+}
+
+.chart-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: bold;
+    color: #36A2EB;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: black;
+        color: white;
+    }
+
+    .chart-label {
+        color: white;
+    }
+}
