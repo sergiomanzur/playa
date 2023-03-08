@@ -9,15 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;">
+                        Bienvenido a tu Estado de Cuenta de Playa Hermosa
+                    </h2>
+                    <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
+                    <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
-                            <h2 style="font-size: x-large">Bienvenido a tu cuenta de Playa Hermosa</h2>
-                            <p>{{$data['user']['name']}}</p>
-                            <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
-{{--                            <div id="piechart" style="margin-top: 20px; width: 90%; height: 300px;"></div>--}}
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
-                                <h2 style="margin-bottom: 15px;font-size: x-large; font-weight: bolder">
-                                    PORCENTAJE POR PAGAR: {{$data['porcentaje_por_pagar']}}%</h2>
                                 <div class="chart-container">
                                     <h2 class="chart-label"></h2>
                                     <canvas id="car-chart" style="max-width:100%;max-height: 300px;">
@@ -36,14 +35,14 @@
                                         <td>${{number_format($data['credito'],2)}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Balance Total</td>
+                                        <td><strong>Balance Total</strong></td>
                                         <td><strong>${{number_format($data['balance'],2)}}</strong></td>
                                     </tr>
                                 </table>
                             </div>
 
                         </div>
-                        <div class="md:w-1/4">
+                        <div class="md:w-1/4" style="padding-top: 2rem;">
 
                             <h3>Balance a crédito</h3>
                             <p>${{number_format($data['balance_a_credito'],2)}}</p>
@@ -58,11 +57,13 @@
                             <h3>Balance pendiente por pagar</h3>
                             <p>${{number_format($data['balance_pendiente_por_pagar'],2)}}</p>
 
+                            <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="Image"/>
+
                         </div>
                     </div>
 
                     <div class="main-table">
-                        <div class="table-wrapper">
+                        <div class="table-wrapper" style="padding-left: 15%; padding-right: 15%">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -74,7 +75,7 @@
                                 <tbody>
                                 @for ($i = 1; $i <= $data['rows']; $i++)
                                     <tr>
-                                        <td>{{ $i }}</td>
+                                        <td>Pago {{ $i }}</td>
                                         <td>${{number_format($data['pago_por_mes'],2)}}</td>
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
                                     </tr>
@@ -105,7 +106,7 @@
                                     data: [percentPaid, percentLeft],
                                     backgroundColor: [
                                         'rgba(54, 162, 235, 0.6)',
-                                        'rgba(255, 99, 132, 0.6)'
+                                        'blue'
                                     ],
                                     borderColor: [
                                         'rgba(54, 162, 235, 1)',
