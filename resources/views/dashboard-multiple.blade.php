@@ -12,7 +12,6 @@
                     <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;">
                         Bienvenido a tu Estado de Cuenta de Playa Hermosa
                     </h2>
-                    @if(!is_null($data['lote']))
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
                     <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
                     <div class="flex flex-col md:flex-row">
@@ -63,12 +62,8 @@
                             <h3>Concepto o Motivo de Pago</h3>
                             <p>{{$data['user']['username']}}</p>
 
-                            <br/>
-
                             <h3>Cuenta Santander</h3>
                             <p>014813606269521266</p>
-
-                            <br/>
 
                             <h3>Cuenta Bancomer</h3>
                             <p>012813004771422347</p>
@@ -153,10 +148,6 @@
                         chartLabel.textContent = centerText;
 
                     </script>
-                    @else
-                        <p>Actualmente no tienes ningún lote dado de alta.</p>
-                        <p>Regresa Pronto</p>
-                    @endif
                 </div>
             </div>
         </div>

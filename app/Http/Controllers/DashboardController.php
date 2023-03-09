@@ -18,6 +18,57 @@ class DashboardController extends Controller
 
         if($cantidad_de_lotes === 1) {
             $lote = $user->lotes->first();
+            $balance = $lote->balances->total ?? '0.00';
+            $promesa = $lote->promesas->cantidad ?? '0.00';
+            $credito = $lote->balances->credito ?? '0.00';
+            $pagos = $lote->pagos;
+
+            $sum_pagos = 0;
+
+            foreach($lote->pagos as $pago) {
+                $sum_pagos += $pago->cantidad;
+            }
+
+            $balance_de_pagos_realizados = $sum_pagos;
+            $balance_pendiente_por_pagar = $balance - $promesa - $balance_de_pagos_realizados;
+            $balance_a_credito = $credito;
+
+            if(isset($lote->balances->plan_de_pagos)) {
+                $payment_per_month = $credito / $lote->balances->plan_de_pagos;
+            } else {
+                $payment_per_month = 0.00;
+            }
+
+            //(Amount paid / Total worth) x 100%
+            $amount_paid = $promesa + $balance_de_pagos_realizados;
+            if($balance > 0) {
+                $porcentaje_por_pagar = ($amount_paid / $balance) * 100;
+            } else {
+                $porcentaje_por_pagar = 0;
+            }
+
+            return view('dashboard', [
+                'data' => [
+                    'user' => $user,
+                    'lote' => $lote,
+                    'manzana' =>$lote->manzana,
+                    'balance' => $balance,
+                    'promesa' => $promesa,
+                    'credito' => $credito,
+                    'balance_de_pagos_realizados' => $balance_de_pagos_realizados,
+                    'balance_pendiente_por_pagar' => $balance_pendiente_por_pagar,
+                    'balance_a_credito' => $balance_a_credito,
+                    'balance_pagado' => $amount_paid,
+                    'porcentaje_por_pagar' => $porcentaje_por_pagar,
+                    'rows' => $lote->balances->plan_de_pagos ?? 1,
+                    'pago_por_mes' => $payment_per_month,
+                    'pagos' => $pagos
+                ]
+            ]);
+        }
+
+        if ($cantidad_de_lotes > 1) {
+            $lote = $user->lotes->first();
             $balance = $lote->balances->total;
             $promesa = $lote->promesas->cantidad;
             $credito = $lote->balances->credito;
@@ -38,24 +89,31 @@ class DashboardController extends Controller
             //(Amount paid / Total worth) x 100%
             $amount_paid = $promesa + $balance_de_pagos_realizados;
             $porcentaje_por_pagar = ($amount_paid / $balance) * 100;
+
+            return view('dashboard', [
+                'data' => [
+                    'user' => $user,
+                    'lote' => $lote,
+                    'manzana' =>$lote->manzana,
+                    'balance' => $balance ?? '0.00',
+                    'promesa' => $promesa ?? '0.00',
+                    'credito' => $credito ?? '0.00',
+                    'balance_de_pagos_realizados' => $balance_de_pagos_realizados ?? '0.00',
+                    'balance_pendiente_por_pagar' => $balance_pendiente_por_pagar ?? '0.00',
+                    'balance_a_credito' => $balance_a_credito ?? '0.00',
+                    'balance_pagado' => $amount_paid ?? '0.00' ,
+                    'porcentaje_por_pagar' => $porcentaje_por_pagar ?? '0.00',
+                    'rows' => $lote->balances->plan_de_pagos ?? 0,
+                    'pago_por_mes' => $payment_per_month ?? '0.00',
+                    'pagos' => $pagos
+                ]
+            ]);
         }
 
         return view('dashboard', [
             'data' => [
                 'user' => $user,
-                'lote' => $lote,
-                'manzana' =>$lote->manzana,
-                'balance' => $balance,
-                'promesa' => $promesa,
-                'credito' => $credito,
-                'balance_de_pagos_realizados' => $balance_de_pagos_realizados,
-                'balance_pendiente_por_pagar' => $balance_pendiente_por_pagar,
-                'balance_a_credito' => $balance_a_credito,
-                'balance_pagado' => $amount_paid,
-                'porcentaje_por_pagar' => $porcentaje_por_pagar,
-                'rows' => $lote->balances->plan_de_pagos,
-                'pago_por_mes' => $payment_per_month,
-                'pagos' => $pagos
+                'lote' => null,
             ]
         ]);
     }
