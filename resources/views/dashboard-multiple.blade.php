@@ -52,7 +52,7 @@
                                 <div  class="md:w-3/4 p-4">
                                     <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                         <div class="chart-container">
-                                            <h2 class="chart-label{{$lote->id}}"></h2>
+                                            <h2 class="chart-label ch-label{{$lote->id}}"></h2>
                                             <canvas id="car-chart{{$lote->id}}" style="max-width:100%;max-height: 300px;">
                                             </canvas>
                                         </div>
@@ -182,7 +182,7 @@
                             }
                         });
 
-                        var chartLabel = document.querySelector('.chart-label{{$lote->id}}');
+                        var chartLabel = document.querySelector('.ch-label{{$lote->id}}');
                         chartLabel.textContent = centerText;
 
                     </script>
