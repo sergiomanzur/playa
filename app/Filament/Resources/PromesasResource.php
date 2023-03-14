@@ -29,6 +29,7 @@ class PromesasResource extends Resource
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
                     ->required(),
+                Forms\Components\DatePicker::make('fecha_de_pago'),
                 Forms\Components\TextInput::make('cantidad')->numeric()
                     ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
                         ->numeric()
@@ -49,6 +50,7 @@ class PromesasResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('lote.nombre'),
                 Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('fecha_de_pago'),
                 Tables\Columns\TextColumn::make('cantidad'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),

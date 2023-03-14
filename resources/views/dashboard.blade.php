@@ -9,7 +9,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;">
+                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
+                    background-color: rgba(28, 152, 131, 1);padding: 15px;">
                         Bienvenido a tu Estado de Cuenta de Playa Hermosa
                     </h2>
                     @if(!is_null($data['lote']))
@@ -64,20 +65,6 @@
                             <p>{{$data['user']['username']}}</p>
 
                             <br/>
-
-                            <h3>Cuenta Santander</h3>
-                            <p>014813606269521266</p>
-
-                            <br/>
-
-                            <h3>Cuenta Bancomer</h3>
-                            <p>012813004771422347</p>
-
-                            <br/>
-
-                            <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
-
-
                             <br/>
                             <br/>
 
@@ -93,20 +80,38 @@
                                     <th class="header">Mensualidad</th>
                                     <th class="header">Monto a pagar</th>
                                     <th class="header">Pagos realizados</th>
+                                    <th class="header">Saldo</th>
+                                    <th class="header">Recibo</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 @for ($i = 1; $i <= $data['rows']; $i++)
+                                        <?php isset($pagos[$i-1]->cantidad) ? $credito = $data['credito'] - $pagos[$i-1]->cantidad : $credito ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
                                         <td>${{number_format($data['pago_por_mes'],2)}}</td>
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
+                                        <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @endif</td>
                                     </tr>
                                 @endfor
                                 </tbody>
                             </table>
                         </div>
                     </div>
+
+                        <div class="payment-info">
+                            <h3>Cuenta Santander</h3>
+                            <p>014813606269521266</p>
+
+                            <br/>
+
+                            <h3>Cuenta Bancomer</h3>
+                            <p>012813004771422347</p>
+
+                            <br/>
+
+                            <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
+                        </div>
 
 
                     <script>
@@ -128,12 +133,12 @@
                                     label: 'Pagos',
                                     data: [percentPaid, percentLeft],
                                     backgroundColor: [
-                                        'rgba(54, 162, 235, 0.6)',
-                                        'blue'
+                                        'rgba(217, 240, 240, 1)',
+                                        'rgba(28, 152, 131, 1)'
                                     ],
                                     borderColor: [
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 99, 132, 1)'
+                                        'black',
+                                        'black'
                                     ],
                                     borderWidth: 1
                                 }]

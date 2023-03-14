@@ -10,7 +10,7 @@ class Promesas extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['lote_id', 'user_id', 'cantidad'];
+    protected $fillable = ['lote_id', 'user_id', 'cantidad', 'fecha_de_pago'];
 
     public function user(): BelongsTo
     {

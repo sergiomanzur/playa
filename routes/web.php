@@ -25,6 +25,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::get('/dashboard', [\App\Http\Controllers\DashboardController::class, 'main'])->name('dashboard');
+    Route::get('/recibos/{pagoId}', [\App\Http\Controllers\DashboardController::class, 'recibo'])->name('recibo');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });

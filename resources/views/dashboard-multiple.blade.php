@@ -11,7 +11,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;">
+                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;background-color: rgba(28, 152, 131, 1);padding: 15px;">
                         Bienvenido a tu Estado de Cuenta de Playa Hermosa
                     </h2>
                     <p style="font-size: larger">
@@ -42,6 +42,8 @@
                             //(Amount paid / Total worth) x 100%
                             $amount_paid = $promesa + $balance_de_pagos_realizados;
                             $porcentaje_por_pagar = ($amount_paid / $balance) * 100;
+
+                            $fecha_de_pago_promesa = $lote->promesas->fecha_de_pago;
 
                             ?>
 
@@ -97,17 +99,8 @@
 
                                     <br/>
 
-                                    <h3>Cuenta Santander</h3>
-                                    <p>014813606269521266</p>
-
-                                    <br/>
-
-                                    <h3>Cuenta Bancomer</h3>
-                                    <p>012813004771422347</p>
-
-                                    <br/>
-
-                                    <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
+                                    <h3>Fecha de Inicio del Contrato</h3>
+                                    <p>{{\Carbon\Carbon::parse($fecha_de_pago_promesa)->format('d/m/Y')}}</p>
 
 
                                     <br/>
@@ -124,19 +117,37 @@
                                             <th class="header">Mensualidad</th>
                                             <th class="header">Monto a pagar</th>
                                             <th class="header">Pagos realizados</th>
+                                            <th class="header">Saldo</th>
+                                            <th class="header">Recibo</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         @for ($i = 1; $i <= $lote->balances->plan_de_pagos; $i++)
+                                            <?php isset($pagos[$i-1]->cantidad) ? $credito = $credito - $pagos[$i-1]->cantidad : $credito ?>
                                             <tr>
                                                 <td>No. {{ $i }}</td>
                                                 <td>${{number_format($payment_per_month,2)}}</td>
                                                 <td>${{(isset($pagos[$i-1]->cantidad)) ? number_format($pagos[$i-1]->cantidad,2) : '0.00'}}</td>
+                                                <td>${{number_format($credito,2)}}</td>
+                                                <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @endif</td>
                                             </tr>
                                         @endfor
                                         </tbody>
                                     </table>
                                 </div>
+                            </div>
+                            <div class="payment-info">
+                                <h3>Cuenta Santander</h3>
+                                <p>014813606269521266</p>
+
+                                <br/>
+
+                                <h3>Cuenta Bancomer</h3>
+                                <p>012813004771422347</p>
+
+                                <br/>
+
+                                <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
                             </div>
                         </div>
 
@@ -156,17 +167,17 @@
                         var carChart = new Chart(ctx, {
                             type: 'doughnut',
                             data: {
-                                labels: ['Cantidad Pagada', 'Cantidad Restante'],
+                                labels: ['Porcentaje Pagado', 'Porcentaje Restante'],
                                 datasets: [{
                                     label: 'Pagos',
                                     data: [percentPaid, percentLeft],
                                     backgroundColor: [
-                                        'rgba(54, 162, 235, 0.6)',
-                                        'blue'
+                                        'rgba(217, 240, 240, 1)',
+                                        'rgba(28, 152, 131, 1)'
                                     ],
                                     borderColor: [
-                                        'rgba(54, 162, 235, 1)',
-                                        'rgba(255, 99, 132, 1)'
+                                        'black',
+                                        'black'
                                     ],
                                     borderWidth: 1
                                 }]
@@ -199,9 +210,11 @@
                     document.addEventListener('DOMContentLoaded', function() {
                         var collapsibles = document.querySelectorAll('.collapsible');
                         for (var i = 0; i < collapsibles.length; i++) {
-                            collapsibles[i].addEventListener('click', function() {
-                                this.classList.toggle('active');
-                                var content = this.querySelector('.collapsible-body');
+                            var header = collapsibles[i].querySelector('.collapsible-header');
+                            header.addEventListener('click', function() {
+                                var collapsible = this.parentElement;
+                                collapsible.classList.toggle('active');
+                                var content = collapsible.querySelector('.collapsible-body');
                                 if (content.style.display === 'block') {
                                     content.style.display = 'none';
                                 } else {

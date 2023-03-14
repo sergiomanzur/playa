@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lote;
+use App\Models\Manzana;
+use App\Models\Pagos;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -47,6 +51,8 @@ class DashboardController extends Controller
                 $porcentaje_por_pagar = 0;
             }
 
+            $fecha_de_pago_promesa = $lote->promesas->fecha_de_pago;
+
             return view('dashboard', [
                 'data' => [
                     'user' => $user,
@@ -62,7 +68,8 @@ class DashboardController extends Controller
                     'porcentaje_por_pagar' => $porcentaje_por_pagar,
                     'rows' => $lote->balances->plan_de_pagos ?? 1,
                     'pago_por_mes' => $payment_per_month,
-                    'pagos' => $pagos
+                    'pagos' => $pagos,
+                    'fecha_de_pago_promesa' => $fecha_de_pago_promesa
                 ]
             ]);
         }
@@ -82,6 +89,34 @@ class DashboardController extends Controller
             'data' => [
                 'user' => $user,
                 'lote' => null,
+            ]
+        ]);
+    }
+
+    public function recibo(Request $request, $pagoId) : View
+    {
+
+        $request->validate([
+
+        ]);
+
+        $user = Auth::user();
+        $pago = Pagos::where('id', $pagoId)->where('user_id', $user->id)->first();
+
+        if(!is_null($pago)) {
+            $lote = Lote::find($pago->lote_id);
+        }
+
+        if(!is_null($lote)) {
+            $manzana = Manzana::find($lote->manzana_id);
+        }
+
+        return view('recibo', [
+            'data' => [
+                'user' => $user,
+                'pago' => $pago,
+                'lote' => $lote,
+                'manzana' => $manzana
             ]
         ]);
     }

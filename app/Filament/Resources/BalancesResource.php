@@ -55,9 +55,11 @@ class BalancesResource extends Resource
                     ),
                 Select::make('plan_de_pagos')
                     ->options([
+                        '1' => 'contado',
                         '12' => '12 pagos SI',
-                        '18' => '18 paso SI',
+                        '18' => '18 pagos SI',
                         '24' => '24 pagos Fijos',
+                        '180' => 'Libre'
                     ])
             ]);
     }
