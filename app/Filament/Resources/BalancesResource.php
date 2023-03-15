@@ -58,6 +58,7 @@ class BalancesResource extends Resource
                         '1' => 'contado',
                         '12' => '12 pagos SI',
                         '18' => '18 pagos SI',
+                        '18pf' => '18 pagos fijos',
                         '24' => '24 pagos Fijos',
                         '180' => 'Libre'
                     ])
