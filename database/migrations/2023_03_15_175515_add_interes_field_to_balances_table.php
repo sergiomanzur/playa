@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::table('balances', function (Blueprint $table) {
             //
+            $table->foreignId('interes_id')->nullable()->after('plan_de_pagos');
         });
     }
 
