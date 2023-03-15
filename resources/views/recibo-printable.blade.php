@@ -1,8 +1,9 @@
 <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div style="padding: 20px;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;">
-                    Recibo de Pago de Mensualidad
+                <h2 style="font-size: x-large; margin-bottom: 15px;
+                 background-color: rgba(28, 152, 131, 1); color: whitesmoke; padding: 20px;">
+                    Playa Hermosa - Recibo de Pago de Mensualidad
                 </h2>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
@@ -20,6 +21,11 @@
 </div>
 
 <style>
+
+    body, p, h2, h3 {
+        font-family: 'Nunito', sans-serif;
+    }
+
     main {
         display: flex;
         flex-wrap: wrap;

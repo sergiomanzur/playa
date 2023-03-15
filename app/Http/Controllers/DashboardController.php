@@ -123,6 +123,7 @@ class DashboardController extends Controller
                         'manzana' => $manzana
                     ]
                 ]);
+                $pdf->setOption(['dpi' => 150, 'defaultFont' => 'Nunito sans-serif']);
                 return $pdf->download('recibo-'.$user->username.'-'.$pagoId.'.pdf');
             }
         }
