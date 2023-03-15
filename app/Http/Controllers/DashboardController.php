@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lote;
 use App\Models\Manzana;
 use App\Models\Pagos;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
@@ -93,11 +94,11 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function recibo(Request $request, $pagoId) : View
+    public function recibo(Request $request, $pagoId)
     {
 
         $request->validate([
-
+            'download' => 'boolean|sometimes'
         ]);
 
         $user = Auth::user();
@@ -109,6 +110,21 @@ class DashboardController extends Controller
 
         if(!is_null($lote)) {
             $manzana = Manzana::find($lote->manzana_id);
+        }
+
+
+        if($request->has('download')){
+            if($request->input('download')) {
+                $pdf = Pdf::loadView('recibo-printable', [
+                    'data' => [
+                        'user' => $user,
+                        'pago' => $pago,
+                        'lote' => $lote,
+                        'manzana' => $manzana
+                    ]
+                ]);
+                return $pdf->download('recibo-'.$user->username.'-'.$pagoId.'.pdf');
+            }
         }
 
         return view('recibo', [

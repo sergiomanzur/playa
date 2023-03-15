@@ -127,9 +127,16 @@
                                             <tr>
                                                 <td>No. {{ $i }}</td>
                                                 <td>${{number_format($payment_per_month,2)}}</td>
-                                                <td>${{(isset($pagos[$i-1]->cantidad)) ? number_format($pagos[$i-1]->cantidad,2) : '0.00'}}</td>
+                                                <td>${{(isset($pagos[$i-1]->cantidad)) ?
+                                                    number_format($pagos[$i-1]->cantidad,2) : '0.00'}}
+                                                </td>
                                                 <td>${{number_format($credito,2)}}</td>
-                                                <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @endif</td>
+                                                <td>@if(isset($pagos[$i-1]))
+                                                        <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a>
+                                                        / <a href="/recibos/{{$pagos[$i - 1]->id}}?download=1">
+                                                            Descargar</a>
+                                                    @endif
+                                                </td>
                                             </tr>
                                         @endfor
                                         </tbody>
