@@ -17,9 +17,5 @@ class Interes extends Model
         'updated_at'
     ];
 
-    public function balance(): BelongsTo
-    {
-        return $this->belongsTo(Balances::class);
-    }
 
 }

@@ -55,13 +55,14 @@ class BalancesResource extends Resource
                     ),
                 Select::make('plan_de_pagos')
                     ->options([
-                        '1' => 'contado',
-                        '12' => '12 pagos SI',
-                        '18' => '18 pagos SI',
-                        '18pf' => '18 pagos fijos',
-                        '24' => '24 pagos Fijos',
-                        '180' => 'Libre'
-                    ])
+                        '1' => 'De Contado',
+                        '12' => '12 pagos',
+                        '18' => '18 pagos',
+                        '24' => '24 pagos',
+                        'libre' => 'Libre'
+                    ]),
+                Forms\Components\Select::make('interes_id')
+                    ->relationship('interes', 'interes')
             ]);
     }
 
@@ -74,6 +75,7 @@ class BalancesResource extends Resource
                 Tables\Columns\TextColumn::make('total'),
                 Tables\Columns\TextColumn::make('credito'),
                 Tables\Columns\TextColumn::make('plan_de_pagos'),
+                Tables\Columns\TextColumn::make('interes.interes'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')

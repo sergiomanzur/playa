@@ -23,8 +23,8 @@ class Balances extends Model
         return $this->belongsTo(Lote::class);
     }
 
-    public function interes() : HasOne
+    public function interes() : BelongsTo
     {
-        return $this->hasOne(Interes::class);
+        return $this->belongsTo(Interes::class);
     }
 }
