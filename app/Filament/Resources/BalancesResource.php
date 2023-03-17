@@ -71,7 +71,7 @@ class BalancesResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('lote.id'),
+                Tables\Columns\TextColumn::make('lote.nombre'),
                 Tables\Columns\TextColumn::make('total'),
                 Tables\Columns\TextColumn::make('credito'),
                 Tables\Columns\TextColumn::make('plan_de_pagos'),

@@ -11,7 +11,8 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;background-color: rgba(28, 152, 131, 1);padding: 15px;">
+                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
+                    background-color: rgba(28, 152, 131, 1);padding: 15px; color: white;">
                         Bienvenido a tu Estado de Cuenta de Playa Hermosa
                     </h2>
                     <p style="font-size: larger">
@@ -45,6 +46,17 @@
 
                             $fecha_de_pago_promesa = $lote->promesas->fecha_de_pago;
 
+                            $interes = $lote->balances->interes;
+
+                            $pago_mensual = null;
+                            if(!is_null($interes)) {
+                                $interes = $interes->interes;
+                                $interes_anual = 0.085;
+                                $plazos = $lote->balances->plan_de_pagos;
+                                $interes_mensual = $interes_anual / 12;
+                                $base = pow(1 + $interes_mensual, $plazos);
+                                $pago_mensual = ($credito * $interes_mensual * $base) / ($base - 1);
+                            }
                             ?>
 
                     <div class="collapsible" id="collapsible{{$lote->id}}">
@@ -52,6 +64,8 @@
                         <div class="collapsible-body" style="display: none;">
                             <div class="flex flex-col md:flex-row">
                                 <div  class="md:w-3/4 p-4">
+                                    <a style="color: #36A2EB; text-underline: #36A2EB"
+                                       href="/estados-de-cuenta/{{$lote->balances->id}}?download=1">Descargar</a>
                                     <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                         <div class="chart-container">
                                             <h2 class="chart-label ch-label{{$lote->id}}"></h2>
@@ -102,6 +116,15 @@
                                     <h3>Fecha de Inicio del Contrato</h3>
                                     <p>{{\Carbon\Carbon::parse($fecha_de_pago_promesa)->format('d/m/Y')}}</p>
 
+                                    <br/>
+
+                                    <?php if(!is_null($interes)) { ?>
+                                    <h3>Interés Anual</h3>
+                                    <p>{{$interes}}%</p>
+
+                                    <?php } ?>
+                                    <br/>
+
 
                                     <br/>
                                     <br/>
@@ -126,7 +149,11 @@
                                             <?php isset($pagos[$i-1]->cantidad) ? $credito = $credito - $pagos[$i-1]->cantidad : $credito ?>
                                             <tr>
                                                 <td>No. {{ $i }}</td>
+                                                @if(is_null($pago_mensual))
                                                 <td>${{number_format($payment_per_month,2)}}</td>
+                                                @else
+                                                    <td>${{number_format($pago_mensual,2)}}</td>
+                                                @endif
                                                 <td>${{(isset($pagos[$i-1]->cantidad)) ?
                                                     number_format($pagos[$i-1]->cantidad,2) : '0.00'}}
                                                 </td>
