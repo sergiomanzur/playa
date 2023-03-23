@@ -40,10 +40,12 @@ class DashboardController extends Controller
             $balance_pendiente_por_pagar = $balance - $promesa - $balance_de_pagos_realizados;
             $balance_a_credito = $credito;
 
+            $payment_per_month = 0.00;
+
             if(isset($lote->balances->plan_de_pagos)) {
-                $payment_per_month = $credito / $lote->balances->plan_de_pagos;
-            } else {
-                $payment_per_month = 0.00;
+                if($lote->balances->plan_de_pagos != 'libre') {
+                    $payment_per_month = $credito / $lote->balances->plan_de_pagos;
+                }
             }
 
             //(Amount paid / Total worth) x 100%
@@ -67,9 +69,9 @@ class DashboardController extends Controller
             }
 
             $pago_mensual = null;
-            if(!is_null($interes)) {
+            if(!is_null($interes) && $lote->balances->plan_de_pagos != 'libre') {
                 $interes = $interes->interes;
-                $interes_anual = 0.085;
+                $interes_anual = $interes / 100;
                 $plazos = $lote->balances->plan_de_pagos;
                 $interes_mensual = $interes_anual / 12;
                 $base = pow(1 + $interes_mensual, $plazos);
@@ -89,7 +91,7 @@ class DashboardController extends Controller
                     'balance_a_credito' => $balance_a_credito,
                     'balance_pagado' => $amount_paid,
                     'porcentaje_por_pagar' => $porcentaje_por_pagar,
-                    'rows' => $lote->balances->plan_de_pagos ?? 1,
+                    'rows' => $lote->balances->plan_de_pagos ?? count($pagos),
                     'pago_por_mes' => $payment_per_month,
                     'pagos' => $pagos,
                     'fecha_de_pago_promesa' => $fecha_de_pago_promesa,
@@ -193,10 +195,12 @@ class DashboardController extends Controller
             $balance_pendiente_por_pagar = $balance - $promesa - $balance_de_pagos_realizados;
             $balance_a_credito = $credito;
 
+            $payment_per_month = 0.00;
+
             if(isset($lote->balances->plan_de_pagos)) {
-                $payment_per_month = $credito / $lote->balances->plan_de_pagos;
-            } else {
-                $payment_per_month = 0.00;
+                if($lote->balances->plan_de_pagos != 'libre') {
+                    $payment_per_month = $credito / $lote->balances->plan_de_pagos;
+                }
             }
 
             //(Amount paid / Total worth) x 100%
@@ -212,9 +216,9 @@ class DashboardController extends Controller
             $interes = $lote->balances->interes;
 
             $pago_mensual = null;
-            if(!is_null($interes)) {
+            if(!is_null($interes) && $lote->balances->plan_de_pagos != 'libre') {
                 $interes = $interes->interes;
-                $interes_anual = 0.085;
+                $interes_anual = $interes / 100;
                 $plazos = $lote->balances->plan_de_pagos;
                 $interes_mensual = $interes_anual / 12;
                 $base = pow(1 + $interes_mensual, $plazos);
@@ -236,7 +240,7 @@ class DashboardController extends Controller
                             'balance_a_credito' => $balance_a_credito,
                             'balance_pagado' => $amount_paid,
                             'porcentaje_por_pagar' => $porcentaje_por_pagar,
-                            'rows' => $lote->balances->plan_de_pagos ?? 1,
+                            'rows' => $lote->balances->plan_de_pagos ?? count($pagos),
                             'pago_por_mes' => $payment_per_month,
                             'pagos' => $pagos,
                             'fecha_de_pago_promesa' => $fecha_de_pago_promesa,

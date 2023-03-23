@@ -1,10 +1,3 @@
-{{--<x-app-layout>--}}
-{{--    <x-slot name="header">--}}
-{{--        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">--}}
-{{--            {{ __('Panel Principal') }}--}}
-{{--        </h2>--}}
-{{--    </x-slot>--}}
-
 <style>
     @tailwind base;
     @tailwind components;
@@ -104,12 +97,6 @@
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
-{{--                                <div class="chart-container">--}}
-{{--                                    <h2 class="chart-label"></h2>--}}
-{{--                                    <canvas id="car-chart" style="width:100%; max-width:100%;max-height: 300px;">--}}
-{{--                                    </canvas>--}}
-{{--                                </div>--}}
-{{--                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>--}}
                                 <?php
                                     $totalAmount = $data['balance'];
                                     $amountPaid = $data['balance_pagado'];
@@ -157,7 +144,7 @@
                                         <?php if(!is_null($data['interes'])) { ?>
                                             <tr>
                                                 <td>Interés Anual</td>
-                                                <td><strong>{{$data['interes']}}%</strong></td>
+                                                <td><strong>{{$data['interes']['interes']}}%</strong></td>
                                             </tr>
                                         <?php } ?>
 
@@ -181,7 +168,8 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @for ($i = 1; $i <= $data['rows']; $i++)
+                                <?php ($data['rows'] === 'libre') ? $rows = count($data['pagos']) : $rows = $data['rows'];  ?>
+                                @for ($i = 1; $i <= $rows; $i++)
                                         <?php isset($data['pagos'][$i-1]->cantidad) ? $credito = $data['credito'] - $data['pagos'][$i-1]->cantidad : $credito = $data['credito'] ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
@@ -199,7 +187,7 @@
                         </div>
                     </div>
 
-                        @if($data['rows'] > 12)
+                        @if($rows > 12)
                             <div class="page_break"></div>
                         @endif
 
@@ -271,5 +259,4 @@
         </div>
     </div>
 
-{{--</x-app-layout>--}}
 

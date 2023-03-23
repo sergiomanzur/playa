@@ -51,7 +51,7 @@
                             $pago_mensual = null;
                             if(!is_null($interes)) {
                                 $interes = $interes->interes;
-                                $interes_anual = 0.085;
+                                $interes_anual = $interes / 100;
                                 $plazos = $lote->balances->plan_de_pagos;
                                 $interes_mensual = $interes_anual / 12;
                                 $base = pow(1 + $interes_mensual, $plazos);

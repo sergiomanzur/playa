@@ -79,7 +79,7 @@
 
                             <?php if(!is_null($data['interes'])) { ?>
                                 <h3>Interés Anual</h3>
-                                <p>{{$data['interes']}}%</p>
+                                <p>{{$data['interes']['interes']}}%</p>
 
                             <br/>
 
@@ -107,8 +107,9 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @for ($i = 1; $i <= $data['rows']; $i++)
-                                        <?php isset($pagos[$i-1]->cantidad) ? $credito = $data['credito'] - $pagos[$i-1]->cantidad : $credito = $data['credito'] ?>
+                                <?php ($data['rows'] === 'libre') ? $rows = count($data['pagos']) : $rows = $data['rows'];  ?>
+                                @for ($i = 1; $i <= $rows; $i++)
+                                        <?php isset($data['pagos'][$i-1]->cantidad) ? $credito = $data['credito'] - $data['pagos'][$i-1]->cantidad : $credito = $data['credito'] ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
                                         @if(!is_null($data['pago_mensual']))
@@ -118,7 +119,7 @@
                                         @endif
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
                                         <td>${{number_format($credito,2)}}</td>
-                                        <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @else <p>No realizado</p> @endif</td>
+                                        <td> @if(isset($data['pagos'][$i-1])) <a href="/recibos/{{$data['pagos'][$i - 1]->id}}">Ver</a> / Descargar @else <p>No realizado</p> @endif</td>
                                     </tr>
                                 @endfor
                                 </tbody>
