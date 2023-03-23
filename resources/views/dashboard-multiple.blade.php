@@ -60,7 +60,7 @@
                             ?>
 
                     <div class="collapsible" id="collapsible{{$lote->id}}">
-                        <div class="collapsible-header">{{$lote->manzana->nombre}} - {{$lote->nombre}}</div>
+                        <div class="collapsible-header dark:bg-gray-900">{{$lote->manzana->nombre}} - {{$lote->nombre}}</div>
                         <div class="collapsible-body" style="display: none;">
                             <div class="flex flex-col md:flex-row">
                                 <div  class="md:w-3/4 p-4">
@@ -113,8 +113,10 @@
 
                                     <br/>
 
+                                    @if(!is_null($fecha_de_pago_promesa))
                                     <h3>Fecha de Inicio del Contrato</h3>
                                     <p>{{\Carbon\Carbon::parse($fecha_de_pago_promesa)->format('d/m/Y')}}</p>
+                                    @endif
 
                                     <br/>
 

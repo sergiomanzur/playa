@@ -18,6 +18,9 @@
                     <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
+                            @if(!is_null($data['balance_id']))
+                            <a style="color: #36A2EB; text-underline: #36A2EB"
+                               href="/estados-de-cuenta/{{$data['balance_id']}}?download=1">Descargar</a>
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                 <div class="chart-container">
                                     <h2 class="chart-label"></h2>
@@ -26,6 +29,7 @@
                                 </div>
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             </div>
+                            @endif
                             <div style="margin:auto; margin-top: 20px; padding-right: 25%; padding-left: 25%">
                                 <table>
                                     <tr>
@@ -66,8 +70,10 @@
 
                             <br/>
 
+                            @if(isset($data['fecha_de_pago_promesa']))
                             <h3>Fecha de Inicio del Contrato</h3>
                             <p>{{\Carbon\Carbon::parse($data['fecha_de_pago_promesa'])->format('d/m/Y')}}</p>
+                            @endif
 
                             <br/>
 
@@ -102,7 +108,7 @@
                                 </thead>
                                 <tbody>
                                 @for ($i = 1; $i <= $data['rows']; $i++)
-                                        <?php isset($pagos[$i-1]->cantidad) ? $credito = $data['credito'] - $pagos[$i-1]->cantidad : $credito ?>
+                                        <?php isset($pagos[$i-1]->cantidad) ? $credito = $data['credito'] - $pagos[$i-1]->cantidad : $credito = $data['credito'] ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
                                         @if(!is_null($data['pago_mensual']))
@@ -111,7 +117,8 @@
                                             <td>${{number_format($data['pago_por_mes'],2)}}</td>
                                         @endif
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
-                                        <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @endif</td>
+                                        <td>${{number_format($credito,2)}}</td>
+                                        <td> @if(isset($pagos[$i-1])) <a href="/recibos/{{$pagos[$i - 1]->id}}">Ver</a> / Descargar @else <p>No realizado</p> @endif</td>
                                     </tr>
                                 @endfor
                                 </tbody>

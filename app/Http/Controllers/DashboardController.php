@@ -54,9 +54,17 @@ class DashboardController extends Controller
                 $porcentaje_por_pagar = 0;
             }
 
-            $fecha_de_pago_promesa = $lote->promesas->fecha_de_pago;
+            if(!is_null($lote->promesas)) {
+                $fecha_de_pago_promesa = $lote->promesas->fecha_de_pago;
+            } else {
+                $fecha_de_pago_promesa = null;
+            }
 
-            $interes = $lote->balances->interes;
+            if(!is_null($lote->balances)) {
+                $interes = $lote->balances->interes;
+            } else {
+                $interes = null;
+            }
 
             $pago_mensual = null;
             if(!is_null($interes)) {
@@ -86,7 +94,8 @@ class DashboardController extends Controller
                     'pagos' => $pagos,
                     'fecha_de_pago_promesa' => $fecha_de_pago_promesa,
                     'interes' => $interes,
-                    'pago_mensual' => $pago_mensual
+                    'pago_mensual' => $pago_mensual,
+                    'balance_id' => $lote->balances->id ?? null
                 ]
             ]);
         }

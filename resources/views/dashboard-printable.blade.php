@@ -114,8 +114,8 @@
                                     $totalAmount = $data['balance'];
                                     $amountPaid = $data['balance_pagado'];
                                     $amountLeft = $totalAmount - $amountPaid;
-                                    $percentLeft = ($amountLeft / $totalAmount) * 100;
-                                    $percentPaid = 100 - $percentLeft;
+                                    $percentLeft = ceil(($amountLeft / $totalAmount) * 100);
+                                    $percentPaid = ceil(100 - $percentLeft);
                                     ?>
                                 <img src="https://quickchart.io/chart?c={type:'doughnut',data:{labels:['Porcentaje Pagado', 'Porcentaje Restante'],datasets:[{label:'Pagos',data:[{{$percentPaid}},{{$percentLeft}}], backgroundColor:['rgba(217, 240, 240, 1)','rgba(28, 152, 131, 1)'],borderColor:['black','black'],borderWidth:1}]}}">
 
@@ -182,7 +182,7 @@
                                 </thead>
                                 <tbody>
                                 @for ($i = 1; $i <= $data['rows']; $i++)
-                                        <?php isset($data['pagos'][$i-1]->cantidad) ? $credito = $data['credito'] - $data['pagos'][$i-1]->cantidad : $data['credito'] ?>
+                                        <?php isset($data['pagos'][$i-1]->cantidad) ? $credito = $data['credito'] - $data['pagos'][$i-1]->cantidad : $credito = $data['credito'] ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
                                         @if(!is_null($data['pago_mensual']))
