@@ -88,8 +88,8 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
-                    background-color: rgba(28, 152, 131, 1);padding: 15px;">
-                        Bienvenido a tu Estado de Cuenta de Playa Hermosa
+                    background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
+                        Estado de Cuenta Playa Hermosa
                     </h2>
                     @if(!is_null($data['lote']))
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
@@ -144,7 +144,11 @@
                                         <?php if(!is_null($data['interes'])) { ?>
                                             <tr>
                                                 <td>Interés Anual</td>
+                                                @if(is_string($data['interes']))
+                                                    <td><strong>{{$data['interes']}}%</strong></td>
+                                                @else
                                                 <td><strong>{{$data['interes']['interes']}}%</strong></td>
+                                                @endif
                                             </tr>
                                         <?php } ?>
 

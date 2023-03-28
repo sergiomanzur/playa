@@ -216,6 +216,7 @@ class DashboardController extends Controller
             $interes = $lote->balances->interes;
 
             $pago_mensual = null;
+
             if(!is_null($interes) && $lote->balances->plan_de_pagos != 'libre') {
                 $interes = $interes->interes;
                 $interes_anual = $interes / 100;
@@ -224,6 +225,7 @@ class DashboardController extends Controller
                 $base = pow(1 + $interes_mensual, $plazos);
                 $pago_mensual = ($credito * $interes_mensual * $base) / ($base - 1);
             }
+
 
             if($request->has('download')){
                 if($request->input('download')) {

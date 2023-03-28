@@ -119,6 +119,7 @@ table td {
     margin: auto;
     text-align: center;
     width: 50%;
+    padding-top: 40px;
 }
 
 .payment-info img {

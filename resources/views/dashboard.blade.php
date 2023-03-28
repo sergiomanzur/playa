@@ -9,12 +9,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
-                    background-color: rgba(28, 152, 131, 1);padding: 15px;">
-                        Bienvenido a tu Estado de Cuenta de Playa Hermosa
+                    <h2 style="font-weight:bolder;font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
+                    background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
+                        Estado de Cuenta Playa Hermosa
                     </h2>
                     @if(!is_null($data['lote']))
-                    <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
+                        <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - <span style="color: #dba265; font-weight: bolder;">{{$data['user']['username']}}</span></p>
                     <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
@@ -30,7 +30,7 @@
                                 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                             </div>
                             @endif
-                            <div style="margin:auto; margin-top: 20px; padding-right: 25%; padding-left: 25%">
+                            <div style="margin:auto; margin-top: 20px; padding-left: 18%">
                                 <table>
                                     <tr>
                                         <td>Enganche</td>
@@ -48,7 +48,7 @@
                             </div>
 
                         </div>
-                        <div class="md:w-1/4" style="padding-top: 2rem;">
+                        <div class="md:w-1/4" style="padding-top: 2rem;padding-right: 35px;">
 
                             <h3>Balance a crédito</h3>
                             <p>${{number_format($data['balance_a_credito'],2)}}</p>
