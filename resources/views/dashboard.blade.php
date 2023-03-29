@@ -13,10 +13,12 @@
                     background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
                         Estado de Cuenta Playa Hermosa
                     </h2>
-                    @if($data['tiene_deuda'])
-                        <div style="text-align: center; margin-top: -20px; margin-bottom:20px;background-color: red;color: white;">
-                            Estimado cliente, tienes Mensualidad(es) pendiente(s) por pagar, favor de aclarar al numero (833)259-97-76
-                        </div>
+                    @if(isset($data['tiene_deuda']))
+                        @if($data['tiene_deuda'])
+                            <div style="text-align: center; margin-top: -20px; margin-bottom:20px;background-color: red;color: white;">
+                                Estimado cliente, tienes Mensualidad(es) pendiente(s) por pagar, favor de aclarar al numero (833)259-97-76
+                            </div>
+                        @endif
                     @endif
                     @if(!is_null($data['lote']))
                         <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - <span style="color: #dba265; font-weight: bolder;">{{$data['user']['username']}}</span></p>
