@@ -11,7 +11,7 @@ class Balances extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'lote_id', 'total', 'credito', 'plan_de_pagos'];
+    protected $fillable = ['user_id', 'lote_id', 'total', 'credito', 'plan_de_pagos', 'tiene_deuda'];
 
     public function user(): BelongsTo
     {

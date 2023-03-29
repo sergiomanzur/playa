@@ -24,6 +24,7 @@
                         foreach ($data['lotes'] as $lote) {
 
                             $balance = $lote->balances->total;
+                            $tiene_deuda = $lote->balances->tiene_deuda;
                             $promesa = $lote->promesas->cantidad;
                             $credito = $lote->balances->credito;
                             $pagos = $lote->pagos;
@@ -188,6 +189,11 @@
                         </div>
 
                     </div>
+                    @if($tiene_deuda)
+                        <div style="text-align: center; margin-top: -20px;background-color: red;color: white;">
+                            Estimado cliente, tienes Mensualidad(es) pendiente(s) por pagar, favor de aclarar al numero (833)259-97-76
+                        </div>
+                    @endif
 
                     <script>
                         // Get data for chart

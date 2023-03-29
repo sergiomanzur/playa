@@ -84,6 +84,7 @@ class DashboardController extends Controller
                     'lote' => $lote,
                     'manzana' =>$lote->manzana,
                     'balance' => $balance,
+                    'tiene_deuda' => $lote->balances->tiene_deuda ?? null,
                     'promesa' => $promesa,
                     'credito' => $credito,
                     'balance_de_pagos_realizados' => $balance_de_pagos_realizados,

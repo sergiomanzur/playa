@@ -7,6 +7,7 @@ use App\Filament\Resources\BalancesResource\RelationManagers;
 use App\Models\Balances;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
@@ -29,6 +30,7 @@ class BalancesResource extends Resource
                 Forms\Components\Select::make('lote_id')
                     ->relationship('lote', 'nombre')
                     ->required(),
+                Toggle::make('tiene_deuda'),
                 Forms\Components\TextInput::make('total')
                     ->numeric()
                     ->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
@@ -72,6 +74,7 @@ class BalancesResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('lote.nombre'),
+                Tables\Columns\TextColumn::make('tiene_deuda'),
                 Tables\Columns\TextColumn::make('total'),
                 Tables\Columns\TextColumn::make('credito'),
                 Tables\Columns\TextColumn::make('plan_de_pagos'),
