@@ -49,7 +49,13 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessFilament(): bool
     {
-        return str_ends_with($this->email, 'sergiom2010@gmail.com');
+        $allowedUsers = [
+            'sergiom2010@gmail.com',
+            'eduagonmon@gmail.com',
+            'baruch.barrera@gmail.com',
+            'admin@playahermosa.mx'
+        ];
+        return in_array($this->email, $allowedUsers);
     }
 
     public function lotes() :HasMany
