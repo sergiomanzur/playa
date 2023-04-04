@@ -86,7 +86,11 @@
 
                             <?php if(!is_null($data['interes'])) { ?>
                                 <h3>Interés Anual</h3>
+                            <?php if(is_array($data['interes']) || is_object($data['interes'])) { ?>
                                 <p>{{$data['interes']['interes']}}%</p>
+                            <?php } else { ?>
+                            <p>{{$data['interes']}}</p>
+                            <?php } ?>
 
                             <br/>
 
