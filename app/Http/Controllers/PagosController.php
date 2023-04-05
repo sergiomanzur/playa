@@ -30,7 +30,8 @@ class PagosController extends Controller
 
     public function insert(Request $request)
     {
-        $allowedEmails = ['sergiom2010@gmail.com', 'jprubio@gmail.com'];
+        $allowedEmails = ['sergiom2010@gmail.com', 'jprubio90@icloud.com', 'eduagonmon@gmail.com',
+            'baruch.barrera@gmail.com', 'admin@playahermosa.mx'];
         $userEmail = auth()->user()->email;
 
         if (!in_array($userEmail, $allowedEmails)) {
