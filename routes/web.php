@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/estados-de-cuenta/{balanceId}', [\App\Http\Controllers\DashboardController::class, 'printBalance'])->name('printBalance');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/pagos', [\App\Http\Controllers\PagosController::class, 'index'])->name('pagos.index');
+    Route::post('/pagos/insertar', [\App\Http\Controllers\PagosController::class, 'insert'])->name('pagos.insert');
 });
 
 require __DIR__.'/auth.php';
