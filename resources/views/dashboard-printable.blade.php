@@ -191,7 +191,7 @@
                         </div>
                     </div>
 
-                        @if($rows > 12)
+                        @if($rows > 12 && $rows < 19)
                             <div class="page_break"></div>
                         @endif
 
