@@ -16,6 +16,33 @@
                         {{ __('Panel Principal') }}
                     </x-nav-link>
                 </div>
+                <?php
+                $allowedEmails = ['sergiom2010@gmail.com', 'jprubio90@icloud.com', 'eduagonmon@gmail.com',
+                    'baruch.barrera@gmail.com', 'admin@playahermosa.mx'];
+
+                $user = \Illuminate\Support\Facades\Auth::user();
+                if(!is_null($user)) {
+                    if (in_array($user->email, $allowedEmails)) {
+                        ?>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pagos.index')" :active="request()->routeIs('pagos.index')">
+                        {{ __('Agregar Pagos') }}
+                    </x-nav-link>
+                </div>
+
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('cuentaMadre.index')" :active="request()->routeIs('cuentaMadre.index')">
+                        {{ __('Cuenta Madre') }}
+                    </x-nav-link>
+                </div>
+                        <?php
+
+                    }
+                }
+
+                ?>
             </div>
 
             <!-- Settings Dropdown -->

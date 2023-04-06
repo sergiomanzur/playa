@@ -12,10 +12,13 @@ use Illuminate\Support\Facades\Http;
 
 class PagosController extends Controller
 {
+    var $allowedEmails = ['sergiom2010@gmail.com', 'jprubio90@icloud.com', 'eduagonmon@gmail.com',
+        'baruch.barrera@gmail.com', 'admin@playahermosa.mx'];
+
     public function index()
     {
         // Check if the user is logged in and their email is allowed
-        $allowedEmails = ['sergiom2010@gmail.com', 'jprubio@gmail.com'];
+        $allowedEmails = $this->allowedEmails;
         if (!Auth::check() || !in_array(Auth::user()->email, $allowedEmails)) {
             abort(403, 'Unauthorized access');
         }
@@ -30,8 +33,7 @@ class PagosController extends Controller
 
     public function insert(Request $request)
     {
-        $allowedEmails = ['sergiom2010@gmail.com', 'jprubio90@icloud.com', 'eduagonmon@gmail.com',
-            'baruch.barrera@gmail.com', 'admin@playahermosa.mx'];
+        $allowedEmails = $this->allowedEmails;
         $userEmail = auth()->user()->email;
 
         if (!in_array($userEmail, $allowedEmails)) {

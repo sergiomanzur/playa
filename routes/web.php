@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/pagos', [\App\Http\Controllers\PagosController::class, 'index'])->name('pagos.index');
     Route::post('/pagos/insertar', [\App\Http\Controllers\PagosController::class, 'insert'])->name('pagos.insert');
+    Route::get('/cuenta-madre', [\App\Http\Controllers\DashboardController::class, 'cuentaMadre'])->name('cuentaMadre.index');
+    Route::post('/cuenta-madre/dashboard', [\App\Http\Controllers\DashboardController::class, 'cuentaMadreDashboard'])->name('cuentaMadreDashboard');
 });
 
 require __DIR__.'/auth.php';
