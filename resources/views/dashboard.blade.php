@@ -118,9 +118,12 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <?php ($data['rows'] === 'libre') ? $rows = count($data['pagos']) : $rows = $data['rows'];  ?>
+                                <?php $cr = $data['credito'];
+                                ($data['rows'] === 'libre') ? $rows = count($data['pagos']) : $rows = $data['rows'];  ?>
                                 @for ($i = 1; $i <= $rows; $i++)
-                                        <?php isset($data['pagos'][$i-1]->cantidad) ? $credito = $data['credito'] - $data['pagos'][$i-1]->cantidad : $credito = $data['credito'] ?>
+                                        <?php
+                                        isset($data['pagos'][$i-1]) ? $cr = $cr - $data['pagos'][$i-1]->cantidad : $cr
+                                        ?>
                                     <tr>
                                         <td>No. {{ $i }}</td>
                                         @if(!is_null($data['pago_mensual']))
@@ -129,8 +132,17 @@
                                             <td>${{number_format($data['pago_por_mes'],2)}}</td>
                                         @endif
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
-                                        <td>${{number_format($credito,2)}}</td>
-                                        <td> @if(isset($data['pagos'][$i-1])) <a href="/recibos/{{$data['pagos'][$i - 1]->id}}">Ver</a> / Descargar @else <p>No realizado</p> @endif</td>
+                                        <td>${{number_format($cr,2)}}</td>
+                                        <td> @if(isset($data['pagos'][$i-1]))
+                                                <a href="/recibos/{{$data['pagos'][$i - 1]->id}}?num={{$i}}">
+                                                    Ver
+                                                </a>
+                                                /
+                                                <a href="/recibos/{{$data['pagos'][$i - 1]->id}}?num={{$i}}&download=1">
+                                                    Descargar
+                                                </a>
+                                            @else <p>No realizado</p> @endif
+                                        </td>
                                     </tr>
                                 @endfor
                                 </tbody>

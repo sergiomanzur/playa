@@ -126,11 +126,14 @@ class DashboardController extends Controller
     {
 
         $request->validate([
-            'download' => 'boolean|sometimes'
+            'download' => 'boolean|sometimes',
+            'num' => 'integer'
         ]);
 
         $user = Auth::user();
         $pago = Pagos::where('id', $pagoId)->where('user_id', $user->id)->first();
+
+        $num = $request->input('num');
 
         if(!is_null($pago)) {
             $lote = Lote::find($pago->lote_id);
@@ -148,7 +151,8 @@ class DashboardController extends Controller
                         'user' => $user,
                         'pago' => $pago,
                         'lote' => $lote,
-                        'manzana' => $manzana
+                        'manzana' => $manzana,
+                        'num' => $num
                     ]
                 ]);
                 $pdf->setOption(['dpi' => 150, 'defaultFont' => 'Nunito sans-serif']);
@@ -161,7 +165,8 @@ class DashboardController extends Controller
                 'user' => $user,
                 'pago' => $pago,
                 'lote' => $lote,
-                'manzana' => $manzana
+                'manzana' => $manzana,
+                'num' => $num
             ]
         ]);
     }
