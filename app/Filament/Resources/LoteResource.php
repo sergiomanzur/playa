@@ -29,7 +29,8 @@ class LoteResource extends Resource
                     ->relationship('manzana', 'nombre')
                     ->required(),
                 Forms\Components\TextInput::make('nombre')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                ->required(),
             ]);
     }
 
