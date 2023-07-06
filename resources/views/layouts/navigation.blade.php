@@ -16,6 +16,13 @@
                         {{ __('Panel Principal') }}
                     </x-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('blog.noticias')" :active="request()->routeIs('blog.noticias')">
+                        {{ __('Noticias') }}
+                    </x-nav-link>
+                </div>
+
                 <?php
                 $allowedEmails = ['sergiom2010@gmail.com', 'jprubio90@icloud.com', 'eduagonmon@gmail.com',
                     'baruch.barrera@gmail.com', 'admin@playahermosa.mx'];
