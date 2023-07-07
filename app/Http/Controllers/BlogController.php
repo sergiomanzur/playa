@@ -18,13 +18,14 @@ class BlogController extends Controller
         $category = Category::where('slug', 'noticias')->first();
 
         if (!$category) {
-            return redirect()->back()->with('error', 'Category not found');
+            $posts = null;
+            return view('noticias', compact('posts'));
         }
 
         $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(10, ['*'], 'page', $request->get('page', 1))->setPath('');
 
         if ($posts->isEmpty()) {
-            return redirect()->back()->with('error', 'No posts found for this category');
+            return view('noticias', compact('posts'));
         }
 
 

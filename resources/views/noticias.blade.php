@@ -65,6 +65,7 @@ $months = [
             <div style="padding: 20px;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    @if(!is_null($posts))
                         @foreach($posts as $post)
                             <div class="post">
                                 <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}">
@@ -79,9 +80,13 @@ $months = [
                                 <a href="{{ route('post.show', $post->slug) }}" class="btn btn-primary read-more">Leer Más...</a>
                             </div>
                         @endforeach
-
+                    @else
+                        <h2>No hay noticias para mostrar.</h2>
+                    @endif
                         <div class="mt-4">
-                            {{ $posts->links() }}
+                            @if(!is_null($posts))
+                                {{ $posts->links() }}
+                            @endif
                         </div>
                 </div>
             </div>
