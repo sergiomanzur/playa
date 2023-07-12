@@ -20,15 +20,16 @@ $months = [
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            <a href="/blog/noticias"> {{ __($post->title) }} </a>
+            <a href="/blog/noticias"> {{ 'Noticias' }} </a>
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div style="padding: 20px;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+            <div style="padding: 20px;" class="inside bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __($post->title) }}</h1>
                     @if(!is_null($post))
                         <div class="featured-image">
                             <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}">
@@ -49,7 +50,7 @@ $months = [
     </div>
 
     <style>
-        div {
+        main div {
             margin-top: 10px;
             margin-bottom: 10px;
         }
@@ -61,6 +62,18 @@ $months = [
             margin-bottom: 5px;
             color: gray;
         }
+
+        main .py-12, main .inside, main .max-w-7xl {
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                margin-bottom: 20px;
+            }
+        }
+
     </style>
 
 </x-app-layout>

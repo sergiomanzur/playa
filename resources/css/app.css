@@ -5,13 +5,14 @@
 main {
     display: flex;
     flex-wrap: wrap;
-    padding: 20px;
+    /*padding: 20px;*/
     margin: 0 auto;
     max-width: 1200px;
 }
 
 .py-12 {
     width: 100%;
+    padding-top: 0 !important;
 }
 
 .content {
@@ -125,4 +126,11 @@ table td {
 .payment-info img {
     max-width: 300px;
     display: initial;
+}
+
+
+@media (min-width: 768px) {
+    header {
+        margin-bottom: 20px;
+    }
 }

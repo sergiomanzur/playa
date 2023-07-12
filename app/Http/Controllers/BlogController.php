@@ -8,11 +8,13 @@ use Stephenjude\FilamentBlog\Models\Post;
 
 class BlogController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('auth')->only('noticiasIndex');
+    }
 
     public function noticiasIndex(Request $request)
     {
-
         setlocale(LC_TIME, 'es_ES.UTF-8');
 
         $category = Category::where('slug', 'noticias')->first();
@@ -28,8 +30,6 @@ class BlogController extends Controller
             return view('noticias', compact('posts'));
         }
 
-
-        //dd($posts);
         return view('noticias', compact('posts'));
     }
 }

@@ -25,7 +25,7 @@ $months = [
 
     <style>
 
-        div {
+        main div {
             margin-bottom: 20px;
         }
         .post {
