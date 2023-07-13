@@ -29,7 +29,7 @@ $months = [
             <div style="padding: 20px;" class="inside bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
 
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h1 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{{ __($post->title) }}</h1>
+                    <h1>{{ __($post->title) }}</h1>
                     @if(!is_null($post))
                         <div class="featured-image">
                             <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}">
