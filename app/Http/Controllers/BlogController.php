@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Stephenjude\FilamentBlog\Models\Category;
 use Stephenjude\FilamentBlog\Models\Post;
 
@@ -24,7 +25,11 @@ class BlogController extends Controller
             return view('noticias', compact('posts'));
         }
 
-        $posts = $category->posts()->orderBy('created_at', 'desc')->paginate(10, ['*'], 'page', $request->get('page', 1))->setPath('');
+        $posts = $category->posts()
+            ->whereDate('published_at', '<=', Carbon::today())
+            ->orderBy('created_at', 'desc')
+            ->paginate(10, ['*'], 'page', $request->get('page', 1))
+            ->setPath('');
 
         if ($posts->isEmpty()) {
             return view('noticias', compact('posts'));
