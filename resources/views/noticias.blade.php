@@ -25,6 +25,64 @@ $months = [
 
     <style>
 
+        /* Reset default margin and padding */
+        body, h1, h2, h3, h4, p, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Typography */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* Text styles */
+        b {
+            font-weight: bold;
+        }
+
+        i {
+            font-style: italic;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+
         main div {
             margin-bottom: 20px;
         }
@@ -69,6 +127,7 @@ $months = [
                         @foreach($posts as $post)
                             <div class="post">
                                 <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}">
+                                <a href="{{ route('post.show', $post->slug) }}"><h2>{{$post->title}}</h2></a>
                                 <p class="excerpt">{{ $post->excerpt }}</p>
                                 <div class="fecha">
                                     <?php

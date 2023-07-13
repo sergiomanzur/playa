@@ -41,7 +41,7 @@ $months = [
                                 ?>
                         </div>
                         <div class="post-content">
-                            {!! $post->content !!}
+                            {!! html_entity_decode($post->content) !!}
                         </div>
                     @endif
                 </div>
@@ -50,6 +50,65 @@ $months = [
     </div>
 
     <style>
+
+        /* Reset default margin and padding */
+        body, h1, h2, h3, h4, p, div {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Typography */
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        /* Text styles */
+        b {
+            font-weight: bold;
+        }
+
+        i {
+            font-style: italic;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 1rem;
+        }
+
+
         main div {
             margin-top: 10px;
             margin-bottom: 10px;
@@ -72,6 +131,16 @@ $months = [
             header {
                 margin-bottom: 20px;
             }
+        }
+
+        @media (max-width: 844px) {
+            iframe {
+                width: 100%;
+            }
+        }
+
+        iframe {
+            margin: auto;
         }
 
     </style>
