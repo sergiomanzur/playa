@@ -22,102 +22,6 @@ $months = [
             {{ __('Noticias') }}
         </h2>
     </x-slot>
-
-    <style>
-
-        /* Reset default margin and padding */
-        body, h1, h2, h3, h4, p, div {
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Typography */
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        h2 {
-            font-size: 2rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        h3 {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        h4 {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
-
-        p {
-            font-size: 1rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-
-        /* Text styles */
-        b {
-            font-weight: bold;
-        }
-
-        i {
-            font-style: italic;
-        }
-
-        /* Images */
-        img {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 1rem;
-        }
-
-
-        main div {
-            margin-bottom: 20px;
-        }
-        .post {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-        }
-        .post img {
-            max-width: 100%;
-            height: auto;
-        }
-        .post .excerpt {
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-        .post .read-more {
-            margin-top: 20px;
-        }
-
-        .read-more {
-            padding: 10px;
-            background: rgba(28, 152, 131, 1);
-            color: white;
-            margin-top: 20px;
-        }
-        .read-more:hover {
-            padding: 10px;
-            background: white;
-            color: rgba(28, 152, 131, 1);
-            margin-top: 20px;
-        }
-    </style>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div style="padding: 20px;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -153,6 +57,102 @@ $months = [
     </div>
 
 </x-app-layout>
+
+<style>
+
+    /* Reset default margin and padding */
+    body, h1, h2, h3, h4, p, div {
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Typography */
+    body {
+        font-family: Arial, sans-serif;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    h3 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    h4 {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+
+    /* Text styles */
+    b {
+        font-weight: bold;
+    }
+
+    i {
+        font-style: italic;
+    }
+
+    /* Images */
+    img {
+        max-width: 100%;
+        height: auto;
+        margin-bottom: 1rem;
+    }
+
+
+    main div {
+        margin-bottom: 20px;
+    }
+    .post {
+        margin-bottom: 20px;
+        padding: 15px;
+        border: 1px solid #eee;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+    }
+    .post img {
+        max-width: 100%;
+        height: auto;
+    }
+    .post .excerpt {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+    .post .read-more {
+        margin-top: 20px;
+    }
+
+    .read-more {
+        padding: 10px;
+        background: rgba(28, 152, 131, 1);
+        color: white;
+        margin-top: 20px;
+    }
+    .read-more:hover {
+        padding: 10px;
+        background: white;
+        color: rgba(28, 152, 131, 1);
+        margin-top: 20px;
+    }
+</style>
 
 
 
