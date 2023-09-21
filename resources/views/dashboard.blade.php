@@ -151,8 +151,8 @@
                     </div>
 
                         <div class="payment-info">
-                            <h3>Cuenta Santander</h3>
-                            <p>014813606269521266</p>
+{{--                            <h3>Cuenta Santander</h3>--}}
+{{--                            <p>014813606269521266</p>--}}
 
                             <br/>
 
