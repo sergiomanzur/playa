@@ -26,6 +26,7 @@ class DashboardController extends Controller
 
         $cantidad_de_lotes = count($user->lotes);
 
+
         if($cantidad_de_lotes === 1) {
             $lote = $user->lotes->first();
             $balance = $lote->balances->total ?? '0.00';
@@ -177,11 +178,18 @@ class DashboardController extends Controller
     public function printBalance(Request $request, $balanceId)
     {
         $request->validate([
-            'download' => 'boolean|sometimes'
+            'download' => 'boolean|sometimes',
+            'user_id' => 'int|sometimes'
         ]);
 
-        $user = Auth::user();
+        if($request->has('user_id')) {
+            $user = User::find($request->input('user_id'));
+        } else {
+            $user = Auth::user();
+        }
+
         $balance = Balances::where('id', $balanceId)->where('user_id', $user->id)->first();
+        $lote = null;
 
         if(!is_null($balance)) {
             $lote = Lote::where('id',$balance->lote_id)->first();
@@ -266,7 +274,11 @@ class DashboardController extends Controller
             }
         }
 
-        return redirect('/');
+        return response()->json([
+            'error' => 'Error al imprimir balance',
+            'balance' => $balance,
+            'lote' => $lote
+        ]);
 
     }
 
@@ -313,16 +325,20 @@ class DashboardController extends Controller
             abort(403); // unauthorized
         }
 
+
         $user_id = $request->input('user_id');
         $user = User::find($user_id);
+
 
         if(is_null($user)) {
             abort(400); // user not found
         }
 
-        $user->load('lotes', 'lotes.balances', 'lotes.promesas', 'lotes.manzana', 'lotes.pagos');
+        $user->load('lotes', 'lotes.promesas', 'lotes.manzana', 'lotes.pagos');
 
         $cantidad_de_lotes = count($user->lotes);
+
+        $balances = Balances::where('lote_id', $user->lotes->first()->id)->first();
 
         if($cantidad_de_lotes === 1) {
             $lote = $user->lotes->first();
@@ -378,6 +394,7 @@ class DashboardController extends Controller
                 $base = pow(1 + $interes_mensual, $plazos);
                 $pago_mensual = ($credito * $interes_mensual * $base) / ($base - 1);
             }
+
 
             return view('dashboard', [
                 'data' => [

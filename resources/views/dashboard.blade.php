@@ -27,7 +27,7 @@
                         <div  class="md:w-3/4 p-4">
                             @if(!is_null($data['balance_id']))
                             <a style="color: #36A2EB; text-underline: #36A2EB"
-                               href="/estados-de-cuenta/{{$data['balance_id']}}?download=1">Descargar</a>
+                               href="/estados-de-cuenta/{{$data['balance_id']}}?download=1&user_id={{$data['user']['id']}}">Descargar</a>
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                 <div class="chart-container">
                                     <h2 class="chart-label"></h2>
