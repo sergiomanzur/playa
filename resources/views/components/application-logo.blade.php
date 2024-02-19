@@ -1,1 +1,1 @@
-<img {{ $attributes }} src="{{url('/assets/img/playahermosalogo.png')}}" alt="logo Playa hermosa"/>
+<img {{ $attributes }} src="{{url('/assets/img/playalum-logo.jpg')}}" alt="logo Playalum"/>

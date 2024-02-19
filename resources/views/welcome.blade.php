@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Playa Hermosa</title>
+        <title>PlayaLum</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
             <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div style="background-color: transparent" class="flex justify-center pt-8 sm:justify-center sm:pt-0">
-                        <img style="width:100%; max-width: 500px;" src="{{url('/assets/img/playahermosalogo.png')}}" alt="Logo Playa Hermosa"/>
+                        <img style="width:100%; max-width: 500px;" src="{{url('/assets/img/playalum-logo.jpg')}}" alt="Logo PlayaLum"/>
                     </div>
                     <div class="flex justify-center mt-4 sm:items-center sm:justify-center">
                         <div class="text-center text-sm text-gray-500 sm:items-center">
