@@ -89,7 +89,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
                     background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
-                        Estado de Cuenta Playa Hermosa
+                        Estado de Cuenta PlayaLum
                     </h2>
                     @if(!is_null($data['lote']))
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>

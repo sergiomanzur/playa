@@ -13,7 +13,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
                     background-color: rgba(28, 152, 131, 1);padding: 15px; color: white;">
-                        Bienvenido a tu Estado de Cuenta de Playa Hermosa
+                        Bienvenido a tu Estado de Cuenta de PlayaLum
                     </h2>
                     <p style="font-size: larger">
                         <strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}
