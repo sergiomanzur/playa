@@ -179,11 +179,6 @@
 
                                 <br/>
 
-                                <h3>Cuenta Bancomer</h3>
-                                <p>012813004771422347</p>
-
-                                <br/>
-
                                 <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
                             </div>
                         </div>
