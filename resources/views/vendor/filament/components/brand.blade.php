@@ -6,3 +6,8 @@
         {{ $brand }}
     </div>
 @endif
+<style>
+    header.filament-main-topbar, .filament-sidebar-header {
+        background-color: #d5bb9f!important;
+    }
+</style>

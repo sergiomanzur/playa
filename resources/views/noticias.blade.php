@@ -142,14 +142,14 @@ $months = [
 
     .read-more {
         padding: 10px;
-        background: rgba(28, 152, 131, 1);
+        background: #b37f49;
         color: white;
         margin-top: 20px;
     }
     .read-more:hover {
         padding: 10px;
         background: white;
-        color: rgba(28, 152, 131, 1);
+        color: #b37f49;
         margin-top: 20px;
     }
 </style>

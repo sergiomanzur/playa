@@ -61,6 +61,7 @@ class BalancesResource extends Resource
                         '12' => '12 pagos',
                         '18' => '18 pagos',
                         '24' => '24 pagos',
+                        '42' => '42 pagos',
                         'libre' => 'Libre'
                     ]),
                 Forms\Components\Select::make('interes_id')

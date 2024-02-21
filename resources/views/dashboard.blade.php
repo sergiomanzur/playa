@@ -10,7 +10,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-weight:bolder;font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
-                    background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
+                    background-color: #b37f49;padding: 15px;color:white;">
                         Estado de Cuenta PlayaLum
                     </h2>
                     @if(isset($data['tiene_deuda']))
@@ -156,10 +156,10 @@
 
                             <br/>
 
-                            <h3>Cuenta Bancomer</h3>
-                            <p>012813004771422347</p>
+{{--                            <h3>Cuenta Bancomer</h3>--}}
+{{--                            <p>012813004771422347</p>--}}
 
-                            <br/>
+{{--                            <br/>--}}
 
                             <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
                         </div>
