@@ -34,7 +34,7 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-weight:bolder;font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
-                    background-color: rgba(28, 152, 131, 1);padding: 15px;color:white;">
+                    background-color: #d5bb9f;padding: 15px;color:white;">
                         Insertar pagos
                     </h2>
 
@@ -68,13 +68,13 @@
                                 <input name="cantidad[]" id="cantidad" type="text" class="form-input block w-full mt-1" placeholder="0.00">
                             </div>
                             <div class="flex justify-between items-center">
-                                <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id="add-row-btn">
+                                <button style="background-color: #d5bb9f!important;" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" id="add-row-btn">
                                     +
                                 </button>
                             </div>
                             <div id="rows-container"></div>
                             <div class="mt-4">
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                <button type="submit" style="background-color: #d5bb9f!important;" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                                     Submit
                                 </button>
                             </div>
@@ -118,10 +118,10 @@
           <input name="cantidad[]" id="cantidad-${id}" type="text" class="form-input block w-full mt-1" placeholder="0.00">
         </div>
         <div class="flex justify-between items-center">
-          <button type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="removeRow(${id})" ${id === 1 ? 'style="visibility: hidden;"' : ''}>
+          <button style="background-color: #d5bb9f!important;" type="button" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="removeRow(${id})" ${id === 1 ? 'style="visibility: hidden;"' : ''}>
             -
           </button>
-          <button type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="addRow()" ${id === lastRowId ? '' : 'style="visibility: hidden;"'}>
+          <button style="background-color: #d5bb9f!important;" type="button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onclick="addRow()" ${id === lastRowId ? '' : 'style="visibility: hidden;"'}>
             +
           </button>
         </div>

@@ -3,7 +3,7 @@
             <div style="padding: 20px;" class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <h2 style="font-size: x-large; margin-bottom: 15px;
                  background-color: rgba(28, 152, 131, 1); color: whitesmoke; padding: 20px;">
-                    PlayaLum - Recibo de Pago de Mensualidad <span>No.{{$data['num']}}</span>
+                    Playa Lum - Recibo de Pago de Mensualidad <span>No.{{$data['num']}}</span>
                 </h2>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>

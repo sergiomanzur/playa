@@ -13,7 +13,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
                     background-color: #b37f49;padding: 15px; color: white;">
-                        Bienvenido a tu Estado de Cuenta de PlayaLum
+                        Bienvenido a tu Estado de Cuenta de Playa Lum
                     </h2>
                     <p style="font-size: larger">
                         <strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}

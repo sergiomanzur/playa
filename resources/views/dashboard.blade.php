@@ -11,7 +11,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h2 style="font-weight:bolder;font-size: x-large; border-bottom: 1px solid; margin-bottom: 15px;
                     background-color: #b37f49;padding: 15px;color:white;">
-                        Estado de Cuenta PlayaLum
+                        Estado de Cuenta Playa Lum
                     </h2>
                     @if(isset($data['tiene_deuda']))
                         @if($data['tiene_deuda'])
@@ -185,7 +185,7 @@
                                     data: [percentPaid, percentLeft],
                                     backgroundColor: [
                                         'rgba(217, 240, 240, 1)',
-                                        'rgba(28, 152, 131, 1)'
+                                        '#d5bb9f'
                                     ],
                                     borderColor: [
                                         'black',
