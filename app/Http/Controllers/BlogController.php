@@ -28,7 +28,7 @@ class BlogController extends Controller
         $posts = $category->posts()
             ->whereDate('published_at', '<=', Carbon::today())
             ->orderBy('created_at', 'desc')
-            ->paginate(10, ['*'], 'page', $request->get('page', 1))
+            ->paginate(9, ['*'], 'page', $request->get('page', 1))
             ->setPath('');
 
         if ($posts->isEmpty()) {
