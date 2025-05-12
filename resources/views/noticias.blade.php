@@ -29,18 +29,26 @@ $months = [
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     @if(!is_null($posts))
                         @foreach($posts as $post)
-                            <div class="post">
-                                <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}">
-                                <a href="{{ route('post.show', $post->slug) }}"><h2>{{$post->title}}</h2></a>
-                                <p class="excerpt">{{ $post->excerpt }}</p>
-                                <div class="fecha">
+                            <div class="post bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8">
+                                @if ($post->banner != null)
+                                    <img src="{{ asset('storage/' . $post->banner) }}" alt="{{ $post->title }}" class="w-full h-auto rounded-md mb-4">
+                                @endif
+
+                                <a href="{{ route('post.show', $post->slug) }}" class="text-blue-600 dark:text-blue-400 hover:underline">
+                                    <h2 class="text-2xl font-bold mb-2">{{$post->title}}</h2>
+                                </a>
+                                @if($post->excerpt)
+                                <p class="excerpt text-gray-700 dark:text-gray-300 mb-3">{{ $post->excerpt }}</p>
+                                @endif
+                                <div class="fecha text-sm text-gray-500 dark:text-gray-400 mb-4">
                                     <?php
                                         $timestamp = strtotime($post->published_at);
 
+                                        // $months array is defined at the top of this file
                                         echo date('j', $timestamp) . ' de ' . $months[date('n', $timestamp)] . ' del ' . date('Y', $timestamp);
                                         ?>
                                 </div>
-                                <a href="{{ route('post.show', $post->slug) }}" class="btn btn-primary read-more">Leer Más...</a>
+                                <a href="{{ route('post.show', $post->slug) }}" class="read-more inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700 text-sm font-medium">Leer Más...</a>
                             </div>
                         @endforeach
                     @else
@@ -59,99 +67,8 @@ $months = [
 </x-app-layout>
 
 <style>
-
-    /* Reset default margin and padding */
-    body, h1, h2, h3, h4, p, div {
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Typography */
-    body {
-        font-family: Arial, sans-serif;
-    }
-
-    h1 {
-        font-size: 2.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    h3 {
-        font-size: 1.8rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    h4 {
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-    }
-
-    p {
-        font-size: 1rem;
-        line-height: 1.5;
-        margin-bottom: 1rem;
-    }
-
-    /* Text styles */
-    b {
-        font-weight: bold;
-    }
-
-    i {
-        font-style: italic;
-    }
-
-    /* Images */
-    img {
-        max-width: 100%;
-        height: auto;
-        margin-bottom: 1rem;
-    }
-
-
-    main div {
-        margin-bottom: 20px;
-    }
-    .post {
-        margin-bottom: 20px;
-        padding: 15px;
-        border: 1px solid #eee;
-        border-radius: 5px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
-    }
-    .post img {
-        max-width: 100%;
-        height: auto;
-    }
-    .post .excerpt {
-        margin-top: 10px;
-        margin-bottom: 20px;
-    }
-    .post .read-more {
-        margin-top: 20px;
-    }
-
-    .read-more {
-        padding: 10px;
-        background: rgba(28, 152, 131, 1);
-        color: white;
-        margin-top: 20px;
-    }
-    .read-more:hover {
-        padding: 10px;
-        background: white;
-        color: rgba(28, 152, 131, 1);
-        margin-top: 20px;
-    }
+    /* Custom styles for noticias.blade.php can be added here if needed. */
+    /* Most styling is now handled by Tailwind CSS utility classes in the markup. */
 </style>
 
 
