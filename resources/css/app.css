@@ -72,6 +72,12 @@ table td {
         order: 2;
         flex: none;
     }
+
+    .table-responsive {
+        overflow-x: auto;
+        display: block;
+        width: 100%;
+    }
 }
 
 

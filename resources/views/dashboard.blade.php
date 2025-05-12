@@ -113,7 +113,7 @@
                     </div>
 
                     <div class="main-table">
-                        <div>
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -175,7 +175,7 @@
                                 CARGOS ADICIONALES
                             </h3>
                             <div>
-                                <div class="bg-white dark:bg-gray-700 shadow overflow-hidden sm:rounded-md">
+                                <div class="bg-white dark:bg-gray-700 shadow sm:rounded-md table-responsive">
                                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                         <thead class="bg-gray-50 dark:bg-gray-800">
                                             <tr>
@@ -219,8 +219,8 @@
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4" style="padding-left: 15%; padding-right: 15%">
                                     PAGOS REALIZADOS A CARGOS ADICIONALES
                                 </h3>
-                                <div >
-                                    <div class="bg-white dark:bg-gray-700 shadow overflow-hidden sm:rounded-md">
+                                <div>
+                                    <div class="bg-white dark:bg-gray-700 shadow sm:rounded-md table-responsive">
                                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                                             <thead class="bg-gray-50 dark:bg-gray-800">
                                                 <tr>
