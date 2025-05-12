@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/pagos/insertar', [\App\Http\Controllers\PagosController::class, 'insert'])->name('pagos.insert');
 
     Route::get('/cuenta-madre', [\App\Http\Controllers\DashboardController::class, 'cuentaMadre'])->name('cuentaMadre.index');
-    Route::post('/cuenta-madre/dashboard', [\App\Http\Controllers\DashboardController::class, 'cuentaMadreDashboard'])->name('cuentaMadreDashboard');
+    Route::match(['GET', 'POST'], '/cuenta-madre/dashboard', [\App\Http\Controllers\DashboardController::class, 'cuentaMadreDashboard'])->name('cuentaMadreDashboard');
 
     Route::get('/blog/noticias', [\App\Http\Controllers\BlogController::class, 'noticiasIndex'])->name('blog.noticias');
     Route::get('/post/{slug}', [PostController::class, 'show'])->name('post.show');

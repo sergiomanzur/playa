@@ -141,6 +141,14 @@
                                         <td>Fecha de Inicio del Contrato</td>
                                         <td><strong>{{\Carbon\Carbon::parse($data['fecha_de_pago_promesa'])->format('d/m/Y')}}</strong></td>
                                     </tr>
+
+                                    @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
+                                        <tr style="background-color: red; color: white;">
+                                            <td>Cargos Adicionales</td>
+                                            <td class="text-sm text-gray-500"><span class="font-medium text-gray-900">${{ number_format($data['sum_cargos_adicionales'], 2) }}</span></td>
+                                        </tr>
+                                    @endif
+
                                         <?php if(!is_null($data['interes'])) { ?>
                                             <tr>
                                                 <td>Interés Anual</td>
