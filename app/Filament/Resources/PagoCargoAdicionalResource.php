@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LoteResource\Pages;
-use App\Filament\Resources\LoteResource\RelationManagers;
-use App\Models\Lote;
+use App\Filament\Resources\PagoCargoAdicionalResource\Pages;
+use App\Filament\Resources\PagoCargoAdicionalResource\RelationManagers;
+use App\Models\PagoCargoAdicional;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,25 +13,25 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LoteResource extends Resource
+class PagoCargoAdicionalResource extends Resource
 {
-    protected static ?string $model = Lote::class;
+    protected static ?string $model = PagoCargoAdicional::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-currency-dollar'; // Changed icon
+    protected static ?string $navigationGroup = 'Cargos Adicionales';
+    protected static ?string $pluralModelLabel = 'pagos cargos adicionales';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}"),
-                Forms\Components\Select::make('manzana_id')
-                    ->relationship('manzana', 'nombre')
+                Forms\Components\Select::make('cargo_adicional_id')
+                    ->relationship('cargoAdicional', 'descripcion')
                     ->required(),
-                Forms\Components\TextInput::make('nombre')
-                    ->maxLength(255)
-                ->required(),
+                Forms\Components\TextInput::make('total')
+                    ->required()
+                    ->numeric()
+                    ->prefix('$.'),
             ]);
     }
 
@@ -39,9 +39,8 @@ class LoteResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('manzana.nombre'),
-                Tables\Columns\TextColumn::make('nombre'),
+                Tables\Columns\TextColumn::make('cargoAdicional.descripcion'),
+                Tables\Columns\TextColumn::make('total')->money('usd', true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -68,9 +67,9 @@ class LoteResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLotes::route('/'),
-            'create' => Pages\CreateLote::route('/create'),
-            'edit' => Pages\EditLote::route('/{record}/edit'),
+            'index' => Pages\ListPagoCargoAdicionals::route('/'),
+            'create' => Pages\CreatePagoCargoAdicional::route('/create'),
+            'edit' => Pages\EditPagoCargoAdicional::route('/{record}/edit'),
         ];
     }
 }

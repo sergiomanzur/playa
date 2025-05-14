@@ -26,7 +26,8 @@ class BalancesResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name'),
+                    ->relationship('user', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}"),
                 Forms\Components\Select::make('lote_id')
                     ->relationship('lote', 'nombre')
                     ->required(),
