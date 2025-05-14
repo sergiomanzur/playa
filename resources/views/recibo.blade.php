@@ -16,9 +16,19 @@
 
 
                     <p style="font-size: larger"><strong>{{$data['user']['name']}}</strong> - {{$data['user']['username']}}</p>
-                    <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
-                    <div style="align-items: center; margin-top:35px; justify-content: center;" class="flex flex-col md:flex-col">
+                    @if(isset($data['manzana']) && isset($data['lote']) && $data['manzana'] && $data['lote'])
+                        <p>{{$data['manzana']['nombre']}} - {{$data['lote']['nombre']}}</p>
+                    @else
+                        <p>Información de lote y manzana no disponible.</p>
+                    @endif
+
+                    @if(isset($data['pago']) && $data['pago'])
                         <p>Hemos recibido tu pago por la cantidad de: ${{number_format($data['pago']['cantidad'],2)}}</p>
+                        <p>Fecha de pago: {{$data['pago']['created_at']}}</p>
+                    @else
+                        <p>Información del pago no disponible.</p>
+                    @endif
+                    <div style="align-items: center; margin-top:35px; justify-content: center;" class="flex flex-col md:flex-col">
                         <img style="width:400px;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
                     </div>
                 </div>

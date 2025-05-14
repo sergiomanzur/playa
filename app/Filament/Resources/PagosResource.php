@@ -28,6 +28,7 @@ class PagosResource extends Resource
                     ->required(),
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}")
                     ->required(),
                 Forms\Components\TextInput::make('cantidad')->mask(fn (Forms\Components\TextInput\Mask $mask) => $mask
                     ->numeric()

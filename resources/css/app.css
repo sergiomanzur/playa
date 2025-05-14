@@ -10,6 +10,17 @@ main {
     max-width: 1200px;
 }
 
+.cargos-adicionales span {
+    font-weight: bold;
+    color: red;
+}
+
+.cargos-adicionales h3
+{
+    font-weight: bold;
+    color: red;
+}
+
 .py-12 {
     width: 100%;
     padding-top: 0 !important;
@@ -60,6 +71,12 @@ table td {
     .sidebar {
         order: 2;
         flex: none;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+        display: block;
+        width: 100%;
     }
 }
 

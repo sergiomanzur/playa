@@ -26,15 +26,16 @@
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
                             @if(!is_null($data['balance_id']))
-                            <a style="color: #36A2EB; text-underline: #36A2EB"
-                               href="/estados-de-cuenta/{{$data['balance_id']}}?download=1&user_id={{$data['user']['id']}}">Descargar</a>
+                                {{-- @if(!$data['isCuentaMadre']) --}}
+                                    <a style="color: #36A2EB; text-underline: #36A2EB"
+                                       href="/estados-de-cuenta/{{$data['balance_id']}}?download=1&user_id={{$data['user']['id']}}">Descargar</a>
+                                {{-- @endif --}}
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                 <div class="chart-container">
                                     <h2 class="chart-label"></h2>
-                                    <canvas id="car-chart" style="max-width:100%;max-height: 300px;">
-                                    </canvas>
+                                    <canvas id="car-chart" style="width: 100%; height: 300px;"></canvas>
                                 </div>
-                                <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                                {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
                             </div>
                             @endif
                             <div style="margin:auto; margin-top: 20px; padding-left: 18%">
@@ -96,6 +97,12 @@
 
                             <?php } ?>
 
+                            {{-- @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
+                            <div class="cargos-adicionales">
+                                <h3>Cargos Adicionales</h3>
+                                <p class="text-sm text-gray-500"><span class="font-medium text-gray-900">${{ number_format($data['sum_cargos_adicionales'], 2) }}</span></p>
+                            </div>
+                            @endif --}}
 
                             <br/>
                             <br/>
@@ -106,7 +113,7 @@
                     </div>
 
                     <div class="main-table">
-                        <div class="table-wrapper" style="padding-left: 15%; padding-right: 15%">
+                        <div class="table-responsive">
                             <table class="table">
                                 <thead>
                                 <tr>
@@ -114,7 +121,9 @@
                                     <th class="header">Monto a pagar</th>
                                     <th class="header">Pagos realizados</th>
                                     <th class="header">Saldo</th>
+                                    @if(!isset($data['isCuentaMadre']) || !$data['isCuentaMadre'])
                                     <th class="header">Recibo</th>
+                                    @endif
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -133,6 +142,7 @@
                                         @endif
                                         <td>${{(isset($data['pagos'][$i-1]->cantidad)) ? number_format($data['pagos'][$i-1]->cantidad,2) : '0.00'}}</td>
                                         <td>${{number_format($cr,2)}}</td>
+                                        @if(!isset($data['isCuentaMadre']) || !$data['isCuentaMadre'])
                                         <td> @if(isset($data['pagos'][$i-1]))
                                                 <a href="/recibos/{{$data['pagos'][$i - 1]->id}}?num={{$i}}">
                                                     Ver
@@ -143,6 +153,7 @@
                                                 </a>
                                             @else <p>No realizado</p> @endif
                                         </td>
+                                        @endif
                                     </tr>
                                 @endfor
                                 </tbody>
@@ -151,8 +162,6 @@
                     </div>
 
                         <div class="payment-info">
-{{--                            <h3>Cuenta Santander</h3>--}}
-{{--                            <p>014813606269521266</p>--}}
 
                             <br/>
 
@@ -160,51 +169,172 @@
                             <img style="width:100%;" src="{{url('/assets/img/firma.png')}}" alt="imagen de la firma"/>
                         </div>
 
+                    @if(isset($data['cargos_adicionales_list']) && !$data['cargos_adicionales_list']->isEmpty())
+                        <div class="mt-8">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4" style="padding-left: 15%; padding-right: 15%">
+                                CARGOS ADICIONALES
+                            </h3>
+                            <div>
+                                <div class="bg-white dark:bg-gray-700 shadow sm:rounded-md table-responsive">
+                                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                        <thead class="bg-gray-50 dark:bg-gray-800">
+                                            <tr>
+                                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                    Descripción
+                                                </th>
+                                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                    Total
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+
+                                            @foreach($data['cargos_adicionales_list'] as $cargo)
+                                                <tr>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                                        {{ $cargo->descripcion }}
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        ${{ number_format($cargo->total, 2) }}
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            <tr class="bg-gray-50 dark:bg-gray-800 font-semibold text-gray-900 dark:text-gray-100">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-left">
+                                                    TOTAL
+                                                </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm text-right">
+                                                    ${{ number_format($data['sum_cargos_adicionales'], 2) }}
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Second table for Pagos de Cargos Adicionales --}}
+                        @if(isset($data['pagos_cargos_adicionales_list']) && !$data['pagos_cargos_adicionales_list']->isEmpty())
+                            <div class="mt-8">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4" style="padding-left: 15%; padding-right: 15%">
+                                    PAGOS REALIZADOS A CARGOS ADICIONALES
+                                </h3>
+                                <div>
+                                    <div class="bg-white dark:bg-gray-700 shadow sm:rounded-md table-responsive">
+                                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                                            <thead class="bg-gray-50 dark:bg-gray-800">
+                                                <tr>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                        Operación
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                        Fecha de Pago
+                                                    </th>
+                                                    <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                                                        Monto Pagado
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="bg-white dark:bg-gray-700 divide-y divide-gray-200 dark:divide-gray-600">
+                                                @foreach($data['pagos_cargos_adicionales_list'] as $pago_ca)
+                                                    <tr>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                                            PAGO
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
+                                                            {{ \Carbon\Carbon::parse($pago_ca->created_at)->format('d/m/Y') }}
+                                                        </td>
+                                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                            ${{ number_format($pago_ca->total, 2) }}
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
+                                                {{-- Summary Rows --}}
+                                                <tr class="bg-gray-50 dark:bg-gray-800 font-semibold">
+                                                    <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        Total Cargos Adicionales:
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        ${{ number_format($data['sum_cargos_adicionales'], 2) }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-gray-50 dark:bg-gray-800 font-semibold">
+                                                    <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        Total Pagos a Cargos Adicionales:
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        ${{ number_format($data['sum_pagos_cargos_adicionales'], 2) }}
+                                                    </td>
+                                                </tr>
+                                                <tr class="bg-gray-100 dark:bg-gray-900 font-bold">
+                                                    <td colspan="2" class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        Saldo Pendiente Cargos Adicionales:
+                                                    </td>
+                                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100 text-right">
+                                                        ${{ number_format($data['sum_cargos_adicionales'] - $data['sum_pagos_cargos_adicionales'], 2) }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        @elseif(isset($data['cargos_adicionales_list']) && !$data['cargos_adicionales_list']->isEmpty() && (!isset($data['pagos_cargos_adicionales_list']) || $data['pagos_cargos_adicionales_list']->isEmpty()))
+                            <div class="mt-8" style="padding-left: 15%; padding-right: 15%">
+                                <p class="text-center text-gray-500 dark:text-gray-400 mt-4 p-4 bg-yellow-100 dark:bg-yellow-700 dark:text-yellow-100 rounded-md">
+                                    NO SE HA HECHO NINGUN PAGO A CARGOS ADICIONALES
+                                </p>
+                            </div>
+                        @endif
+                    @endif {{-- End of main @if for cargos adicionales list --}}
 
                     <script>
-                        // Get data for chart
-                        const totalAmount = {{$data['balance']}};
-                        const amountPaid = {{$data['balance_pagado']}};
-                        const amountLeft = totalAmount - amountPaid;
-                        const percentLeft = (amountLeft / totalAmount) * 100;
-                        const percentPaid = 100 - percentLeft;
-                        const centerText = `${percentPaid.toFixed(0)}%`;
+                        document.addEventListener('DOMContentLoaded', function () {
+                            // Get data for chart
+                            const totalAmount = {{$data['balance']}};
+                            const amountPaid = {{$data['balance_pagado']}};
+                            const amountLeft = totalAmount - amountPaid;
+                            const percentLeft = (amountLeft / totalAmount) * 100;
+                            const percentPaid = 100 - percentLeft;
+                            const centerText = `${percentPaid.toFixed(0)}%`;
 
-                        // Create chart
-                        const ctx = document.getElementById('car-chart').getContext('2d');
-                        const carChart = new Chart(ctx, {
-                            type: 'doughnut',
-                            data: {
-                                labels: ['Cantidad Pagada', 'Cantidad Restante'],
-                                datasets: [{
-                                    label: 'Pagos',
-                                    data: [percentPaid, percentLeft],
-                                    backgroundColor: [
-                                        'rgba(217, 240, 240, 1)',
-                                        'rgba(28, 152, 131, 1)'
-                                    ],
-                                    borderColor: [
-                                        'black',
-                                        'black'
-                                    ],
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                legend: {
-                                    display: true,
-                                    labels: {
-                                        fontColor: 'black'
+                            // Create chart
+                            const ctx = document.getElementById('car-chart').getContext('2d');
+                            const carChart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: ['Cantidad Pagada', 'Cantidad Restante'],
+                                    datasets: [{
+                                        label: 'Pagos',
+                                        data: [percentPaid, percentLeft],
+                                        backgroundColor: [
+                                            'rgba(217, 240, 240, 1)',
+                                            'rgba(28, 152, 131, 1)'
+                                        ],
+                                        borderColor: [
+                                            'black',
+                                            'black'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    responsive: true,
+                                    maintainAspectRatio: false, // Added this line
+                                    legend: {
+                                        display: true,
+                                        labels: {
+                                            fontColor: 'black'
+                                        }
                                     }
                                 }
-                            }
+                            });
+
+                            const chartLabel = document.querySelector('.chart-label');
+                            chartLabel.textContent = centerText;
                         });
-
-                        const chartLabel = document.querySelector('.chart-label');
-                        chartLabel.textContent = centerText;
-
                     </script>
+
                     @else
                         <p>Actualmente no tienes ningún lote dado de alta.</p>
                         <p>Regresa Pronto</p>

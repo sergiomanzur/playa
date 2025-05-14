@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LoteResource\Pages;
-use App\Filament\Resources\LoteResource\RelationManagers;
-use App\Models\Lote;
+use App\Filament\Resources\CargoAdicionalResource\Pages;
+use App\Filament\Resources\CargoAdicionalResource\RelationManagers;
+use App\Models\CargoAdicional;
 use Filament\Forms;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -13,25 +13,29 @@ use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class LoteResource extends Resource
+class CargoAdicionalResource extends Resource
 {
-    protected static ?string $model = Lote::class;
+    protected static ?string $model = CargoAdicional::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationGroup = 'Cargos Adicionales';
+    protected static ?string $pluralModelLabel = 'cargos adicionales';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('descripcion')
+                    ->required()
+                    ->maxLength(65535),
+                Forms\Components\TextInput::make('total')
+                    ->required()
+                    ->numeric()
+                    ->prefix('$'), // Added numeric and prefix for currency
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
-                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}"),
-                Forms\Components\Select::make('manzana_id')
-                    ->relationship('manzana', 'nombre')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}")
                     ->required(),
-                Forms\Components\TextInput::make('nombre')
-                    ->maxLength(255)
-                ->required(),
             ]);
     }
 
@@ -39,9 +43,9 @@ class LoteResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('descripcion'),
+                Tables\Columns\TextColumn::make('total')->money('mxn', true), // Formatted as currency
                 Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('manzana.nombre'),
-                Tables\Columns\TextColumn::make('nombre'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime(),
                 Tables\Columns\TextColumn::make('updated_at')
@@ -61,16 +65,16 @@ class LoteResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\PagosRelationManager::class,
         ];
     }
 
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListLotes::route('/'),
-            'create' => Pages\CreateLote::route('/create'),
-            'edit' => Pages\EditLote::route('/{record}/edit'),
+            'index' => Pages\ListCargoAdicionals::route('/'),
+            'create' => Pages\CreateCargoAdicional::route('/create'),
+            'edit' => Pages\EditCargoAdicional::route('/{record}/edit'),
         ];
     }
 }

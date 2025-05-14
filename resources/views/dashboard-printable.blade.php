@@ -53,6 +53,9 @@
         }
     }
 
+    .main-table table {
+        font-size: 14px;
+    }
 
     .chart-container {
         position: relative;
@@ -141,6 +144,14 @@
                                         <td>Fecha de Inicio del Contrato</td>
                                         <td><strong>{{\Carbon\Carbon::parse($data['fecha_de_pago_promesa'])->format('d/m/Y')}}</strong></td>
                                     </tr>
+
+                                    @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
+                                        <tr>
+                                            <td>Cargos Adicionales</td>
+                                            <td><strong>${{ number_format($data['sum_cargos_adicionales'], 2) }}</strong></td>
+                                        </tr>
+                                    @endif
+
                                         <?php if(!is_null($data['interes'])) { ?>
                                             <tr>
                                                 <td>Interés Anual</td>
@@ -195,9 +206,9 @@
                         </div>
                     </div>
 
-                        @if($rows > 12 && $rows < 19)
+                        {{-- @if($rows > 12 && $rows < 19)
                             <div class="page_break"></div>
-                        @endif
+                        @endif --}}
 
                         <div class="payment-info">
 {{--                            <h3>Cuenta Santander</h3>--}}
