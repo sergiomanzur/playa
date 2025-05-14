@@ -267,7 +267,7 @@ class DashboardController extends Controller
                                 ->with(['lote.promesas', 'lote.manzana', 'lote.pagos', 'interes']) // Eager load relations
                                 ->first();
 
-        $cargos_adicionales_list = CargoAdicional::where('user_id', $loggedInUser->id)->get();
+        $cargos_adicionales_list = CargoAdicional::where('user_id', $userForBalance->id)->get();
         $sum_cargos_adicionales = $cargos_adicionales_list->sum('total');
 
         $lote = null;

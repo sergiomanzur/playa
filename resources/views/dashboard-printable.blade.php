@@ -53,6 +53,9 @@
         }
     }
 
+    .main-table table {
+        font-size: 14px;
+    }
 
     .chart-container {
         position: relative;
@@ -143,9 +146,9 @@
                                     </tr>
 
                                     @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
-                                        <tr style="background-color: red; color: white;">
+                                        <tr>
                                             <td>Cargos Adicionales</td>
-                                            <td class="text-sm text-gray-500"><span class="font-medium text-gray-900">${{ number_format($data['sum_cargos_adicionales'], 2) }}</span></td>
+                                            <td><strong>${{ number_format($data['sum_cargos_adicionales'], 2) }}</strong></td>
                                         </tr>
                                     @endif
 
@@ -203,9 +206,9 @@
                         </div>
                     </div>
 
-                        @if($rows > 12 && $rows < 19)
+                        {{-- @if($rows > 12 && $rows < 19)
                             <div class="page_break"></div>
-                        @endif
+                        @endif --}}
 
                         <div class="payment-info">
 {{--                            <h3>Cuenta Santander</h3>--}}

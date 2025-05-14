@@ -34,6 +34,7 @@ class CargoAdicionalResource extends Resource
                     ->prefix('$'), // Added numeric and prefix for currency
                 Forms\Components\Select::make('user_id')
                     ->relationship('user', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}")
                     ->required(),
             ]);
     }

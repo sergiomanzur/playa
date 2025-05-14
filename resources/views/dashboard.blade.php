@@ -26,10 +26,10 @@
                     <div class="flex flex-col md:flex-row">
                         <div  class="md:w-3/4 p-4">
                             @if(!is_null($data['balance_id']))
-                                @if(!$data['isCuentaMadre'])
+                                {{-- @if(!$data['isCuentaMadre']) --}}
                                     <a style="color: #36A2EB; text-underline: #36A2EB"
                                        href="/estados-de-cuenta/{{$data['balance_id']}}?download=1&user_id={{$data['user']['id']}}">Descargar</a>
-                                @endif
+                                {{-- @endif --}}
                             <div style="width:100%; margin: auto; text-align: center; margin-top: 15px;">
                                 <div class="chart-container">
                                     <h2 class="chart-label"></h2>
@@ -97,12 +97,12 @@
 
                             <?php } ?>
 
-                            @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
+                            {{-- @if(isset($data['sum_cargos_adicionales']) && $data['sum_cargos_adicionales'] > 0)
                             <div class="cargos-adicionales">
                                 <h3>Cargos Adicionales</h3>
                                 <p class="text-sm text-gray-500"><span class="font-medium text-gray-900">${{ number_format($data['sum_cargos_adicionales'], 2) }}</span></p>
                             </div>
-                            @endif
+                            @endif --}}
 
                             <br/>
                             <br/>

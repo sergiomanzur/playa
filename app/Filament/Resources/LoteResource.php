@@ -24,7 +24,8 @@ class LoteResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
-                    ->relationship('user', 'name'),
+                    ->relationship('user', 'name')
+                    ->getOptionLabelFromRecordUsing(fn ($record) => "{$record->name} - {$record->username}"),
                 Forms\Components\Select::make('manzana_id')
                     ->relationship('manzana', 'nombre')
                     ->required(),
